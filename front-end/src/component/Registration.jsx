@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { myContext } from "../Context"
 import axios from 'axios'
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export default function Register(){
 
@@ -48,6 +48,10 @@ export default function Register(){
       /> <br></br>
 
       <button onClick={Register}>Register</button>
+
+      <br></br>
+      <p>You have account ?</p>
+      <Link to={'/'}>Login</Link>
         </div>
     )
 }
