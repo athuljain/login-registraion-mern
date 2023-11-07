@@ -1,9 +1,12 @@
 import { useContext } from "react"
 import { myContext } from "../Context"
 import axios from "axios"
-import { Link } from "react-router-dom"
+import { Link,useNavigate } from "react-router-dom"
 
 export default function Login(){
+
+            const nav=useNavigate()
+
             const {email,setEmail,password,setPassword}=useContext(myContext)
             const Login = async ()=>{
                 try{
@@ -12,6 +15,7 @@ export default function Login(){
                         password
                     })
                     console.log(response.data);
+                    nav("/home")
                 }catch(error){
                     console.log(error.response.data);
                 }

@@ -3,7 +3,7 @@ const mongoose= require('mongoose')
 const bcrypt=require('bcrypt')
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
-
+require('dotenv').config()
 const app= express()
 app.use(express.json())
 app.use(cors())
@@ -13,7 +13,7 @@ app.use(cors())
 
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/Register", {
+  .connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     

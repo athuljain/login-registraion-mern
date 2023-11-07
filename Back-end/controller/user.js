@@ -23,7 +23,7 @@ const userRegister = ( async (req, res) => {
       const user = await schema.findOne({ email });
   
       if (user && (await bcrypt.compare(password, user.password))) {
-        const token = jwt.sign({ email: user.email }, 'secret_key');
+        const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET);
         res.status(200).json({ token });
       } else {
         res.status(401).send('Invalid email or password');

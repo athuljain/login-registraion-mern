@@ -5,6 +5,7 @@ import './App.css';
 import Register from './component/Registration.jsx';
 import Login from './component/Login.jsx';
 import {myContext} from './Context.js'
+import Home from './component/Home.jsx';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
           <Routes>
             <Route path='/register' element={<Register />}/>
             <Route path='/' element={<Login />} />
+            <Route path='/home' element={<Home />} />
         </Routes>
         </myContext.Provider>
       </BrowserRouter>

@@ -18,7 +18,7 @@ export default function Register(){
             
             if (response.data === 'User registered successfully') {
                 alert('Registration successful');
-                nav('/login');
+                nav('/');
               }
               console.log("reg user", response.data);
         } catch (error){
