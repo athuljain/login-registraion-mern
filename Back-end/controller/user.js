@@ -6,9 +6,9 @@ const schema = require("../model/userModel")
 
 const userRegister = ( async (req, res) => {
     try {
-      const { email, password } = req.body;
+      const {name, email, password,confirmPassword } = req.body;
       const hashedPassword = await bcrypt.hash(password, 10);
-      const user = new schema({ email, password: hashedPassword });
+      const user = new schema({name, email, password: hashedPassword,confirmPassword });
       await user.save();
       res.status(201).send('User registered successfully');
     } catch (error) {
