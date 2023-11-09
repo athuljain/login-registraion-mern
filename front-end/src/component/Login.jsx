@@ -15,9 +15,11 @@ export default function Login(){
                         password
                     })
                     console.log(response.data);
+                    alert("Login Success!!!!")
                     nav("/home")
                 }catch(error){
                     console.log(error.response.data);
+                    alert('Registration failed!!!');
                 }
                 
             }
