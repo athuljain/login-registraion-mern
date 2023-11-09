@@ -11,10 +11,13 @@ function App() {
 
   const[email,setEmail]=useState("")
   const [password,setPassword]=useState("")
+  const [name,setName]=useState("")
+  const [confirmPassword,setConfirmPassword]=useState("")
 
   const values={
     email,setEmail,
-    password,setPassword
+    password,setPassword,
+    name,setName,confirmPassword,setConfirmPassword
   }
 
   return (

@@ -7,25 +7,28 @@ export default function Register(){
 
     const nav=useNavigate()
 
-    const {email,setEmail,password,setPassword}=useContext(myContext)
+    const {email,setEmail,password,setPassword,confirmPassword,setConfirmPassword,name,setName}=useContext(myContext)
 
     const Register = async () => {
         try{
             const response = await axios.post("http://localhost:5000/user/register", {
+                name,
                 email,
                 password,
+                confirmPassword,
             })
             
-            if (response.data === 'User registered successfully') {
+            if (response.status === 201) {
                 alert('Registration successful');
                 nav('/');
+              } else {
+                alert('Registration failed');
               }
-              console.log("reg user", response.data);
-        } catch (error){
-            console.log(error.response.data);
-        }
-
-    }
+            } catch (error) {
+              console.log(error.response.data);
+              alert('Registration failed');
+            }
+          }
 
 
 
@@ -33,6 +36,13 @@ export default function Register(){
     return(
         <div>
             <h1>Register</h1>
+
+            <input
+        type="String"
+        placeholder="Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      /> <br></br>
 
             <input
         type="email"
@@ -45,6 +55,12 @@ export default function Register(){
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+      /> <br></br>
+         <input
+        type="password"
+        placeholder="Confirm Password"
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
       /> <br></br>
 
       <button onClick={Register}>Register</button>
