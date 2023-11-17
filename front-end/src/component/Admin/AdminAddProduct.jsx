@@ -16,6 +16,7 @@ export default function AdminAddProduct(){
     
     const handleSubmit=async(e)=>{
         e.preventDefault()
+        console.log('Token:', token); 
         try {
             await axios.post("http://localhost:5000/admin/products", product, {
                 headers: {

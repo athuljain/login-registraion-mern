@@ -26,6 +26,7 @@ const AdminLogin = () => {
         const data = response.data;
   
         // Assuming you want to store the token in localStorage
+        
         localStorage.setItem('token', data.token);
         setToken(data.token)
   
