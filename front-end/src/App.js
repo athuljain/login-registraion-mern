@@ -9,6 +9,8 @@ import Home from './component/Home.jsx';
 import AdminLogin from './component/Admin/AdminLogin.jsx';
 import AdminPage from './component/Admin/AdminPage.jsx';
 import AdminUsers from './component/Admin/AdminUsers.jsx';
+import AdminAddProduct from './component/Admin/AdminAddProduct.jsx';
+import AdminProducts from './component/Admin/AdminProducts.jsx';
 
 function App() {
 
@@ -17,14 +19,26 @@ function App() {
   const [name,setName]=useState("")
   const [confirmPassword,setConfirmPassword]=useState("")
   const [adminEmail, setAdminEmail] = useState('');
-  const [adminPassword, setAdminPassword] = useState('');
+  //const [adminPassword, setAdminPassword] = useState('');
+  const [product, setProduct] = useState({
+    title: '',
+    description: '',
+    price: '',
+    image: '',
+    category: '',
+    brand: '',
+  });
+
+  const [token, setToken] = useState(null);
 
   const values={
     email,setEmail,
     password,setPassword,
     name,setName,confirmPassword,setConfirmPassword,
-    adminPassword, setAdminPassword,
-    adminEmail, setAdminEmail
+    //adminPassword, setAdminPassword,
+    adminEmail, setAdminEmail,
+    product,setProduct,
+    token, setToken,
   }
 
   return (
@@ -34,8 +48,9 @@ function App() {
           <Routes>
             <Route path='/adminLogin' element={<AdminLogin />}/>
             <Route path='/admin' element={<AdminPage />}/>
-            <Route path='/adminProducts' element={<AdminUsers />}/>
-
+            <Route path='/adminProducts' element={<AdminProducts />}/>
+            <Route path='/addProduct' element={<AdminAddProduct />}/>
+            <Route path='/adminUsers' element={<AdminUsers />}/>
 
             <Route path='/register' element={<Register />}/>
             <Route path='/' element={<Login />} />

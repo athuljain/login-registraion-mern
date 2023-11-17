@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const AdminLogin = () => {
     
-    const{ email,setEmail,password,setPassword}=useContext(myContext)
+    const{ email,setEmail,password,setPassword,token, setToken}=useContext(myContext)
     console.log("Admin Email",email);
     console.log("Admin Password",password);
 
@@ -27,6 +27,7 @@ const AdminLogin = () => {
   
         // Assuming you want to store the token in localStorage
         localStorage.setItem('token', data.token);
+        setToken(data.token)
   
         console.log('Login successful', data.message);
         alert("Welcome Admin");
@@ -38,31 +39,7 @@ const AdminLogin = () => {
       }
 
 
-    // try {
-    //  const response= await axios.post("http://localhost:5000/admin/login",{
-    //     email,
-    //     password
-    //  })
-     
-     
-    //  console.log(response.data);
-
-    //   if (!response.ok) {
-    //     throw new Error('Invalid Email or Password');
-    //   }else{
-    //     const data = await response.json();
-
-    //     // Assuming you want to store the token in localStorage
-    //     localStorage.setItem('token', data.token);
   
-    //     console.log('Login successful', data.message);
-    //     alert("welcome Admin")
-    //   }
-
-    
-    // } catch (error) {
-    //   console.error('Login failed', error.message);
-    // }
   };
 
   return (
