@@ -6,6 +6,7 @@ import Register from './component/Registration.jsx';
 import Login from './component/Login.jsx';
 import {myContext} from './Context.js'
 import Home from './component/Home.jsx';
+import AdminLogin from './component/Admin/AdminLogin.jsx';
 
 function App() {
 
@@ -13,11 +14,15 @@ function App() {
   const [password,setPassword]=useState("")
   const [name,setName]=useState("")
   const [confirmPassword,setConfirmPassword]=useState("")
+  const [adminEmail, setAdminEmail] = useState('');
+  const [adminPassword, setAdminPassword] = useState('');
 
   const values={
     email,setEmail,
     password,setPassword,
-    name,setName,confirmPassword,setConfirmPassword
+    name,setName,confirmPassword,setConfirmPassword,
+    adminPassword, setAdminPassword,
+    adminEmail, setAdminEmail
   }
 
   return (
@@ -25,6 +30,7 @@ function App() {
       <BrowserRouter>
         <myContext.Provider value={values}>
           <Routes>
+            <Route path='/adminLogin' element={<AdminLogin />}/>
             <Route path='/register' element={<Register />}/>
             <Route path='/' element={<Login />} />
             <Route path='/home' element={<Home />} />
