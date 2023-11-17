@@ -28,6 +28,25 @@ const adminLogin= async(req,res)=>{
 }
 
 
+const createProduct=async(req,res)=>{
+    try{
+        await productDatas.insertMany([
+            {
+                title: req.body.title,
+        description: req.body.description,
+        price: req.body.price,
+        image: req.body.image,
+        category: req.body.category,
+        brand:req.body.brand  
+            }
+        ])
+        res.status(201).json({message : "Product Create Successfully"})
+    }catch(error){
+        res.status(500)
+        .json({message :"Failed to create Product",error: error.message})
+    }
+}
+
 
 
 
@@ -35,5 +54,6 @@ const adminLogin= async(req,res)=>{
 
 
 module.exports={
-    adminLogin
+    adminLogin,
+    createProduct,
 }
