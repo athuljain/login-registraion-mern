@@ -40,6 +40,7 @@ function App() {
     product,setProduct,
     token, setToken,
   }
+  console.log("front end token", token);
 
   return (
     <div className="App">

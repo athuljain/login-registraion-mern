@@ -33,14 +33,15 @@ const createProduct=async(req,res)=>{
         await productDatas.insertMany([
             {
                 title: req.body.title,
-        description: req.body.description,
-        price: req.body.price,
-        image: req.body.image,
-        category: req.body.category,
-        brand:req.body.brand  
+                description: req.body.description,
+                price: req.body.price,
+                image: req.body.image,
+                category: req.body.category,
+                brand:req.body.brand  
             }
         ])
         res.status(201).json({message : "Product Create Successfully"})
+        console.log("product create successfully");
     }catch(error){
         res.status(500)
         .json({message :"Failed to create Product",error: error.message})

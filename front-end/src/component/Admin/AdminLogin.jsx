@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const AdminLogin = () => {
     
-    const{ email,setEmail,password,setPassword,token, setToken}=useContext(myContext)
+    const{ email,setEmail,password,setPassword, setToken}=useContext(myContext)
     console.log("Admin Email",email);
     console.log("Admin Password",password);
 
@@ -21,9 +21,10 @@ const AdminLogin = () => {
           password,
         });
   
-        console.log(response.data);
+       
   
         const data = response.data;
+        console.log(response.data);
   
         // Assuming you want to store the token in localStorage
         

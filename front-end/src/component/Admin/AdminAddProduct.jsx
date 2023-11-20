@@ -3,7 +3,7 @@ import { myContext } from "../../Context"
 import axios from "axios";
 
 export default function AdminAddProduct(){
-    const { product,setProduct,token, setToken}=useContext(myContext)
+    const { product,setProduct,token, }=useContext(myContext)
 
 
     const handleChange=(e)=>{
@@ -13,11 +13,14 @@ export default function AdminAddProduct(){
             [name]:value
         })
     }
+  
     
     const handleSubmit=async(e)=>{
         e.preventDefault()
         console.log('Token:', token); 
+
         try {
+              console.log("front end",product);
             await axios.post("http://localhost:5000/admin/products", product, {
                 headers: {
                     Authorization: `Bearer ${token}`
