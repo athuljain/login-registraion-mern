@@ -16,29 +16,31 @@ const AdminLogin = () => {
   const handleLogin = async () => {
 
     try {
-        const response = await axios.post("http://localhost:5000/admin/login", {
-          email,
-          password,
-        });
-  
-       
-  
-        const data = response.data;
-        console.log(response.data);
-  
-        // Assuming you want to store the token in localStorage
-        
+      const response = await axios.post("http://localhost:5000/admin/login", {
+        email,
+        password,
+      });
+    
+      const data = response.data;
+      console.log("response.data adminlogin",response.data);
+    
+      // Assuming you want to store the token in localStorage
+      if (data.token) {
         localStorage.setItem('token', data.token);
-        setToken(data.token)
-  
+        setToken(data.token);
+        console.log("token in frontEnd",data.token);
         console.log('Login successful', data.message);
         alert("Welcome Admin");
-        nav("/admin")
-
-      } catch (error) {
-        console.error('Login failed', error.message);
-        alert("Invalid Email or Password");
+        nav("/admin");
+      } else {
+        console.error('Token not found in response');
+        alert("Invalid response from the server");
       }
+    } catch (error) {
+      console.error('Login failed', error.message);
+      alert("Invalid Email or Password");
+    }
+    
 
 
   

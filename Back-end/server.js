@@ -31,7 +31,7 @@ mongoose
     console.log("connection failed");
   });
 
-app.use(cookieParser())
+// app.use(cookieParser())
 //admin routes
 
 const adminRoute=require('./routes/adminRoute')
