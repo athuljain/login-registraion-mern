@@ -30,6 +30,7 @@ function App() {
   });
 
   const [token, setToken] = useState(null);
+  const [products,setProducts]=useState([])
 
   const values={
     email,setEmail,
@@ -39,6 +40,7 @@ function App() {
     adminEmail, setAdminEmail,
     product,setProduct,
     token, setToken,
+    products,setProducts
   }
   console.log("front end token",token);
 
@@ -51,6 +53,7 @@ function App() {
             <Route path='/admin' element={<AdminPage />}/>
             <Route path='/adminProducts' element={<AdminProducts />}/>
             <Route path='/addProduct' element={<AdminAddProduct />}/>
+            
             <Route path='/adminUsers' element={<AdminUsers />}/>
 
             <Route path='/register' element={<Register />}/>

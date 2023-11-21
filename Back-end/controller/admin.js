@@ -48,6 +48,21 @@ const createProduct=async(req,res)=>{
     }
 }
 
+// find all product details
+
+const getProducts = async (req, res) => {
+    try {
+      const allProducts = await productDatas.find();
+      res.status(200).json({ message: "All Product List", allProducts });
+    } catch (error) {
+      res
+        .status(404)
+        .json({ message: "All Product List Not Found: ", error: error.message });
+      console.log(error);
+    }
+  };
+  
+
 
 
 
@@ -57,4 +72,5 @@ const createProduct=async(req,res)=>{
 module.exports={
     adminLogin,
     createProduct,
+    getProducts,
 }
