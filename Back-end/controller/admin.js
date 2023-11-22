@@ -18,7 +18,7 @@ const adminLogin= async(req,res)=>{
         const token=jwt.sign({email},process.env.JWT_SECRET,{
             expiresIn:"1h"
         })
-        res.cookie("token",token)
+        res.cookie("token",token,{httpOnly:true,secure:false})
         res.setHeader("Authorization",token)
 
         res.json({message:"welcome, Admin",token})

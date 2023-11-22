@@ -23,6 +23,7 @@ export default function AdminAddProduct() {
     }
 
     try {
+      console.log("Token before requst:", token);
       console.log("front end", product);
 
       // Include the token in the request headers
@@ -42,7 +43,7 @@ export default function AdminAddProduct() {
       console.error("Failed to create product", error.response);
     }
   };
-  console.log('Token before request:', token);
+ 
 
   return (
     <div>
