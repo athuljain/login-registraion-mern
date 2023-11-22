@@ -31,16 +31,18 @@ export default function AdminAddProduct() {
         product,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`,
+            'Content-Type':'application/json'
           },
         }
       );
 
       console.log("Product created successfully", response.data);
     } catch (error) {
-      console.error("Failed to create product", error);
+      console.error("Failed to create product", error.response);
     }
   };
+  console.log('Token before request:', token);
 
   return (
     <div>
