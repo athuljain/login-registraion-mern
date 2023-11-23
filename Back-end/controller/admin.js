@@ -40,7 +40,7 @@ const createProduct=async(req,res)=>{
                 brand:req.body.brand  
             }
         ])
-        res.status(201).json({message : "Product Create Successfully"})
+        res.status(200).json({message : "Product Create Successfully"})
         console.log("product create successfully");
     }catch(error){
         res.status(500)

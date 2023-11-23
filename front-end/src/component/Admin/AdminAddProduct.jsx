@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { myContext } from "../../Context";
-import axios from "axios";
+import axios, { Axios } from "axios";
 
 export default function AdminAddProduct() {
   const { product, setProduct, token } = useContext(myContext);
@@ -27,7 +27,7 @@ export default function AdminAddProduct() {
       console.log("front end", product);
 
       // Include the token in the request headers
-      const response = await axios.post(
+      const response = await Axios.post(
         "http://localhost:5000/admin/products",
         product,
         {

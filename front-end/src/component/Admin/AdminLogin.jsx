@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { myContext } from '../../Context';
-import axios from 'axios';
+import axios, { Axios } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const AdminLogin = () => {
