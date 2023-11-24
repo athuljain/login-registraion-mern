@@ -62,6 +62,26 @@ const getProducts = async (req, res) => {
     }
   };
   
+  // update product
+
+const updateProduct = async (req, res) => {
+    try {
+      const id = req.params.id;
+      const { title, description, price, image, category } = req.body;
+  
+      const updatedProduct = await productDatas.findOneAndUpdate(
+        { _id: id },
+        { title, description, price, image, category,brand }
+      );
+      // console.log(updatedProduct)
+      if (!updatedProduct) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      res.json({ message: "Product updated", updatedProduct });
+    } catch (error) {
+      res.status(500).json({ message: "Error updating product" });
+    }
+  };
 
 
 
@@ -73,4 +93,5 @@ module.exports={
     adminLogin,
     createProduct,
     getProducts,
+    updateProduct,
 }

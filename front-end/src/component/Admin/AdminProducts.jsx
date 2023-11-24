@@ -38,7 +38,11 @@ nav("/addProduct")
         <ul>
           {products.map((product) => (
             <li key={product._id}>
-              {product.title} 
+             <h4> {product.title} </h4>
+             <h5>{product.description}</h5>
+             <h4>{product.price}</h4>
+
+             <button>Edit Products</button>
              
             </li>
           ))}
