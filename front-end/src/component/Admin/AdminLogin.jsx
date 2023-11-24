@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { myContext } from '../../Context';
+import { myContext } from '../../Context.js';
 import axios, { Axios } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
