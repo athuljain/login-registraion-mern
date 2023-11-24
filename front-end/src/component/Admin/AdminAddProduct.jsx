@@ -1,8 +1,10 @@
 import { useContext } from "react";
 import { myContext } from "../../Context.js";
 import axios, { Axios } from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminAddProduct() {
+  const nav=useNavigate()
   const { product, setProduct, token } = useContext(myContext);
 
   const handleChange = (e) => {
@@ -63,6 +65,8 @@ export default function AdminAddProduct() {
 
     const data = await response.json();
     console.log('Backend response:', data);
+    alert("product added succesfully")
+    nav('/adminProducts')
 
   } catch (error) {
     console.error('Error:', error.message);
