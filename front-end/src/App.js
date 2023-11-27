@@ -10,6 +10,7 @@ import AdminPage from './component/Admin/AdminPage.jsx';
 import AdminUsers from './component/Admin/AdminUsers.jsx';
 import AdminAddProduct from './component/Admin/AdminAddProduct.jsx';
 import AdminProducts from './component/Admin/AdminProducts.jsx';
+import AdminEditProduct from './component/Admin/AdminEditProduct.jsx';
 
 function App() {
 
@@ -52,8 +53,8 @@ function App() {
             <Route path='/admin' element={<AdminPage />}/>
             <Route path='/adminProducts' element={<AdminProducts />}/>
             <Route path='/addProduct' element={<AdminAddProduct />}/>
-            
             <Route path='/adminUsers' element={<AdminUsers />}/>
+            <Route path='/admnEditProduct' element={<AdminEditProduct />}/>
 
             <Route path='/register' element={<Register />}/>
             <Route path='/' element={<Login />} />

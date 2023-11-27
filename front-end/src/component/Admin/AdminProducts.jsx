@@ -9,11 +9,17 @@ export default function AdminProducts(){
 
     const nav=useNavigate()
 
+    function EditPage(){
+      nav("/admnEditProduct")
+    }
+
     useEffect(() => {
         // Fetch products when the component mounts
         const fetchProducts = async () => {
           try {
-            const response = await axios.get('http://localhost:5000/admin/products'); // Replace with your actual API endpoint
+            const response = await axios.get('http://localhost:5000/admin/products',{
+              withCredentials:true
+            }); // Replace with your actual API endpoint
             setProducts(response.data.allProducts);
           } catch (error) {
             console.error('Error fetching products:', error);
@@ -22,6 +28,7 @@ export default function AdminProducts(){
     
         fetchProducts();
       }, []);
+      console.log("fetch products",products);
 
     function AddProduct(){
 nav("/addProduct")
@@ -42,7 +49,7 @@ nav("/addProduct")
              <h5>{product.description}</h5>
              <h4>{product.price}</h4>
 
-             <button>Edit Products</button>
+             <button onClick={EditPage}>Edit Products</button>
              
             </li>
           ))}

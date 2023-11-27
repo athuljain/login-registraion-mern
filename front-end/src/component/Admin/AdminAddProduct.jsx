@@ -24,55 +24,55 @@ export default function AdminAddProduct() {
       return;
     }
 
-  //   try {
-  //     console.log("Token before requst:", token);
-  //     console.log("front end", product);
+    try {
+      console.log("Token before requst:", token);
+      console.log("front end", product);
 
-  //     // Include the token in the request headers
-  //     const response = await axios.post("http://localhost:5000/admin/products",
-  //       product,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //           'Content-Type':'application/json'
-  //         },
-  //       }
-  //     );
+      // Include the token in the request headers
+      const response = await axios.post("http://localhost:5000/admin/products",
+        product,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type':'application/json'
+          },
+        }
+      );
 
-  //     console.log("Product created successfully", response.data);
-  //   } catch (error) {
-  //     console.error("Failed to create product", error.response);
-  //   }
-  // };
-
-
-  try {
-    console.log("Token before request:", token);
-    console.log("Front end", product);
-
-    const response = await fetch('http://localhost:5000/admin/products', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify(product),
-    });
-
-    if (!response.ok) {
-      throw new Error('Error connecting to the backend');
+      console.log("Product created successfully", response.data);
+    } catch (error) {
+      console.error("Failed to create product", error.response);
     }
+  };
 
-    const data = await response.json();
-    console.log('Backend response:', data);
-    alert("product added succesfully")
-    nav('/adminProducts')
 
-  } catch (error) {
-    console.error('Error:', error.message);
+//   try {
+//     console.log("Token before request:", token);
+//     console.log("Front end", product);
+
+//     const response = await fetch('http://localhost:5000/admin/products', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': `Bearer ${token}`,
+//       },
+//       body: JSON.stringify(product),
+//     });
+
+//     if (!response.ok) {
+//       throw new Error('Error connecting to the backend');
+//     }
+
+//     const data = await response.json();
+//     console.log('Backend response:', data);
+//     alert("product added succesfully")
+//     nav('/adminProducts')
+
+//   } catch (error) {
+//     console.error('Error:', error.message);
     
-  }
-};
+//   }
+// };
  
 
   return (

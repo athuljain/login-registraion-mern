@@ -2,14 +2,14 @@ const jwt=require('jsonwebtoken')
 
 
 const checkAdminToken = (req, res, next) => {
-    // const token = req.cookies.token;
+    const token = req.cookies.token;
   
-    // console.log('Token in middleware:', token);
+    console.log('Token in middleware:', token);
   
-    // if (!token) {
-    //   return res.status(401).json({ message: 'Authorization token missing' });
-    // }
-    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+      return res.status(401).json({ message: 'Authorization token missing' });
+    }
+    // const token = req.headers.authorization?.split(' ')[1];
     if (!token) {
       return res.status(401).json({ message: 'Unauthorized' });
     }
@@ -17,7 +17,7 @@ const checkAdminToken = (req, res, next) => {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      
+  
       req.token = token;
       next(); 
 
