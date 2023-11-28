@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { myContext } from "../../Context.js";
-import axios, { Axios } from "axios";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function AdminAddProduct() {
@@ -40,8 +40,11 @@ export default function AdminAddProduct() {
       );
 
       console.log("Product created successfully", response.data);
+      alert("product created !!!!")
+      nav("/adminProducts")
     } catch (error) {
       console.error("Failed to create product", error.response);
+      alert("Failed to create product")
     }
   };
 
