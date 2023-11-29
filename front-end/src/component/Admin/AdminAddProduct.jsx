@@ -1,12 +1,11 @@
 import { useContext } from "react";
 import { myContext } from "../../Context.js";
-import axios from "axios";
+import axios, { Axios } from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function AdminAddProduct() {
   const nav=useNavigate()
   const { product, setProduct, token } = useContext(myContext);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct({
@@ -14,20 +13,16 @@ export default function AdminAddProduct() {
       [name]: value,
     });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     // Check if the token is available
     if (!token) {
       console.error("Token not available. Please log in as an admin.");
       return;
     }
-
     try {
       console.log("Token before requst:", token);
       console.log("front end", product);
-
       // Include the token in the request headers
       const response = await axios.post("http://localhost:5000/admin/products",
         product,
@@ -40,11 +35,8 @@ export default function AdminAddProduct() {
       );
 
       console.log("Product created successfully", response.data);
-      alert("product created !!!!")
-      nav("/adminProducts")
     } catch (error) {
       console.error("Failed to create product", error.response);
-      alert("Failed to create product")
     }
   };
 
