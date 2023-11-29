@@ -14,6 +14,8 @@ import AdminEditProduct from './component/Admin/AdminEditProduct.jsx';
 
 function App() {
 
+  
+
   const[email,setEmail]=useState("")
   const [password,setPassword]=useState("")
   const [name,setName]=useState("")
@@ -54,7 +56,7 @@ function App() {
             <Route path='/adminProducts' element={<AdminProducts />}/>
             <Route path='/addProduct' element={<AdminAddProduct />}/>
             <Route path='/adminUsers' element={<AdminUsers />}/>
-            <Route path='/adminEditProduct/:id' element={<AdminEditProduct />}/>
+            <Route path='/adminEditProduct/:productId' element={<AdminEditProduct />}/>
 
             <Route path='/register' element={<Register />}/>
             <Route path='/' element={<Login />} />
