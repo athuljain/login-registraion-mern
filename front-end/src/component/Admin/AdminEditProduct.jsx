@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect } from "react"
 import { myContext } from "../../Context"
 import { useNavigate, useParams } from "react-router-dom"
 import axios from "axios"
@@ -11,24 +11,21 @@ export default function AdminEditProduct(){
     const nav=useNavigate()
     const {product,setProduct,token}= useContext(myContext)
 
-    const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
+   
 useEffect(() => {
   if (productId) {
-    setLoading(true);
+    
     axios
       .get(`http://localhost:5000/admin/products/${productId}`, {
         withCredentials: true,
       })
       .then(response => {
         setProduct(response.data.updatedProduct);
-        setLoading(false);
+        
       })
       .catch(error => {
         console.error('Error fetching product details:', error);
-        setError('Failed to fetch product details');
-        setLoading(false);
+      
       });
   }
 }, [productId, setProduct]);
@@ -52,7 +49,7 @@ useEffect(() => {
         try {
           
     
-          setLoading(true);
+        
           // Include the token in the request headers
           const response = await axios.put(
             `http://localhost:5000/admin/products/${productId}`,
@@ -71,10 +68,8 @@ useEffect(() => {
           nav('/adminProducts');
         } catch (error) {
           console.error('Failed to update product', error.response);
-          setError('Failed to update product');
-        } finally {
-          setLoading(false);
-        }
+          
+        } 
       };
       
       
@@ -82,8 +77,7 @@ useEffect(() => {
     return(
         <div>
         <h1>Edit product</h1>
-        {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
+        
         <form onSubmit={handleUpdateProduct}>
           <label>Title:</label>
           <input
