@@ -12,6 +12,10 @@ export default function AdminProducts() {
     nav(`/adminEditProduct/${productId}`);
     console.log("edit button :",productId);
   }
+  function DeletePage(productId){
+    nav(`/adminDeleteProduct/${productId}`)
+    console.log('delete button : ',productId);
+  }
 
   useEffect(() => {
     // Fetch products when the component mounts
@@ -52,8 +56,9 @@ export default function AdminProducts() {
               <h4>{product.price}</h4>
 
               <button onClick={() => EditPage(product._id)}>
-                Edit Products
+                Edit Product
               </button>
+              <button onClick={()=> DeletePage(product._id)} >Delete Product</button>
             </li>
           ))}
         </ul>
