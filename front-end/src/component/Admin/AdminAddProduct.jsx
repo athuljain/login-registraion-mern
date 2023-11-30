@@ -4,7 +4,7 @@ import axios, { Axios } from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function AdminAddProduct() {
-  const nav=useNavigate()
+  const nav = useNavigate();
   const { product, setProduct, token } = useContext(myContext);
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,12 +24,13 @@ export default function AdminAddProduct() {
       console.log("Token before requst:", token);
       console.log("front end", product);
       // Include the token in the request headers
-      const response = await axios.post("http://localhost:5000/admin/products",
+      const response = await axios.post(
+        "http://localhost:5000/admin/products",
         product,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type':'application/json'
+            "Content-Type": "application/json",
           },
         }
       );
@@ -40,35 +41,33 @@ export default function AdminAddProduct() {
     }
   };
 
+  //   try {
+  //     console.log("Token before request:", token);
+  //     console.log("Front end", product);
 
-//   try {
-//     console.log("Token before request:", token);
-//     console.log("Front end", product);
+  //     const response = await fetch('http://localhost:5000/admin/products', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': `Bearer ${token}`,
+  //       },
+  //       body: JSON.stringify(product),
+  //     });
 
-//     const response = await fetch('http://localhost:5000/admin/products', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': `Bearer ${token}`,
-//       },
-//       body: JSON.stringify(product),
-//     });
+  //     if (!response.ok) {
+  //       throw new Error('Error connecting to the backend');
+  //     }
 
-//     if (!response.ok) {
-//       throw new Error('Error connecting to the backend');
-//     }
+  //     const data = await response.json();
+  //     console.log('Backend response:', data);
+  //     alert("product added succesfully")
+  //     nav('/adminProducts')
 
-//     const data = await response.json();
-//     console.log('Backend response:', data);
-//     alert("product added succesfully")
-//     nav('/adminProducts')
+  //   } catch (error) {
+  //     console.error('Error:', error.message);
 
-//   } catch (error) {
-//     console.error('Error:', error.message);
-    
-//   }
-// };
- 
+  //   }
+  // };
 
   return (
     <div>

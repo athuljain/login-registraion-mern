@@ -1,26 +1,22 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
-export default function AdminPage()
-{
+export default function AdminPage() {
+  const nav = useNavigate();
 
-    const nav=useNavigate()
+  function ProductPage() {
+    nav("/adminProducts");
+  }
+  function UsersPage() {
+    nav("/adminUsers");
+  }
 
-    function ProductPage(){
-        nav("/adminProducts")
-
-    }
-    function UsersPage(){
-        nav("/adminUsers")
-
-    }
-
-    return(
-        <div>
-            <h1>Admin Page</h1>
-            <div>
-                <button onClick={ProductPage}>Products</button> 
-                <button onClick={UsersPage}>Users</button>
-            </div>
-        </div>
-    )
+  return (
+    <div>
+      <h1>Admin Page</h1>
+      <div>
+        <button onClick={ProductPage}>Products</button>
+        <button onClick={UsersPage}>Users</button>
+      </div>
+    </div>
+  );
 }
