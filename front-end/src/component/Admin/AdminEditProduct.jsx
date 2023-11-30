@@ -59,6 +59,7 @@ useEffect(() => {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'
               },
+              withCredentials:true,
             }
           );
     
@@ -83,14 +84,14 @@ useEffect(() => {
           <input
             type="text"
             name="title"
-            value={product.title}
+            value={product.title || " " }
             onChange={handleChange}
           />
   
           <label>Description:</label>
           <textarea
             name="description"
-            value={product.description }
+            value={product.description || " "  }
             onChange={handleChange}
           />
   
@@ -98,7 +99,7 @@ useEffect(() => {
           <input
             type="text"
             name="price"
-            value={product.price}
+            value={product.price || " " }
             onChange={handleChange}
           />
   
@@ -106,7 +107,7 @@ useEffect(() => {
           <input
             type="text"
             name="image"
-            value={product.image }
+            value={product.image || " "  }
             onChange={handleChange}
           />
   
@@ -114,17 +115,17 @@ useEffect(() => {
           <input
             type="text"
             name="category"
-            value={product.category }
+            value={product.category || " " }
             onChange={handleChange}
           />
   
           <label>Brand:</label>
           <input
-            type="text"
-            name="brand"
-            value={product.brand }
-            onChange={handleChange}
-          />
+          type="text"
+          name="brand"
+          value={product.brand || ""}
+          onChange={handleChange}
+        />
   
           <button type="submit">Update Product</button>
         </form>

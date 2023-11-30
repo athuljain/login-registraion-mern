@@ -65,6 +65,7 @@ const getProducts = async (req, res) => {
 const updateProduct = async (req, res) => {
   try {
     const id = req.params.id;
+    
     const { title, description, price, image, category, brand } = req.body;
 
     const updatedProduct = await productDatas.findOneAndUpdate(
