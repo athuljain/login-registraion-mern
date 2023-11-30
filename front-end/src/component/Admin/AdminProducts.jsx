@@ -10,12 +10,26 @@ export default function AdminProducts() {
 
   function EditPage(productId) {
     nav(`/adminEditProduct/${productId}`);
-    console.log("edit button :",productId);
+    console.log("edit button :", productId);
   }
-  function DeletePage(productId){
-    nav(`/adminDeleteProduct/${productId}`)
-    console.log('delete button : ',productId);
-  }
+
+  const DeleteBtn = async (productId) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/admin/products/${productId}`,
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.status === 200) {
+        setProducts((prevProducts) =>
+          prevProducts.filter((product) => product._id !== productId)
+        );
+      }
+    } catch (error) {
+      console.error("Erro deleting product", error);
+    }
+  };
 
   useEffect(() => {
     // Fetch products when the component mounts
@@ -58,7 +72,9 @@ export default function AdminProducts() {
               <button onClick={() => EditPage(product._id)}>
                 Edit Product
               </button>
-              <button onClick={()=> DeletePage(product._id)} >Delete Product</button>
+              <button onClick={() => DeleteBtn(product._id)}>
+                Delete Product
+              </button>
             </li>
           ))}
         </ul>

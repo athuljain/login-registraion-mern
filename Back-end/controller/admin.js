@@ -106,7 +106,6 @@ const deleteProduct=async (req,res)=>{
   } catch(error){
     res.status(500).json({message:"Sever Error",error:error.message})
   }
-
 }
 
 
