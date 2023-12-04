@@ -41,6 +41,7 @@ export default function AdminAddProduct() {
     }
   };
 
+  
   //   try {
   //     console.log("Token before request:", token);
   //     console.log("Front end", product);
