@@ -1,12 +1,16 @@
-const express = require("express")
+const express = require("express");
 
-const app=express()
+const app = express();
 
-const user=require("../controller/user")
+const user = require("../controller/user");
+const bodyParser = require("body-parser");
 
-const checkUserToken=("../middileware/userMiddileware.js")
+const checkUserToken = require('../middileware/userMiddileware')
 
-app.post("/register",user.userRegister)
-app.post("/login", user.userLogin)
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-module.exports=app
+app.post("/register", user.userRegister);
+app.post("/login", checkUserToken, user.userLogin);
+
+module.exports = app;
