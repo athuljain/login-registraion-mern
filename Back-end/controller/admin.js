@@ -60,13 +60,12 @@ const getProducts = async (req, res) => {
   }
 };
 
-
 // update Product
 
 const updateProduct = async (req, res) => {
   try {
     const id = req.params.id;
-    
+
     const { title, description, price, image, category, brand } = req.body;
 
     const updatedProduct = await productDatas.findOneAndUpdate(
@@ -86,31 +85,26 @@ const updateProduct = async (req, res) => {
   }
 };
 
-
 // Delete Product
 
-const deleteProduct=async (req,res)=>{
-  const id=req.params.id;
+const deleteProduct = async (req, res) => {
+  const id = req.params.id;
   console.log(req.params.id);
 
-  try{
-    const deleteProduct=await productDatas.deleteOne({_id:id})
+  try {
+    const deleteProduct = await productDatas.deleteOne({ _id: id });
     console.log(deleteProduct);
-    if(deleteProduct){
+    if (deleteProduct) {
       res
         .status(200)
-        .json({message:"product Deleted",product : deleteProduct})
-        return;
+        .json({ message: "product Deleted", product: deleteProduct });
+      return;
     }
-    res.status(404).json({message : "Product not found"})
-  } catch(error){
-    res.status(500).json({message:"Sever Error",error:error.message})
+    res.status(404).json({ message: "Product not found" });
+  } catch (error) {
+    res.status(500).json({ message: "Sever Error", error: error.message });
   }
-}
-
-
-
-
+};
 
 module.exports = {
   adminLogin,
