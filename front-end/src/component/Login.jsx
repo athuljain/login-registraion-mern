@@ -7,14 +7,23 @@ export default function Login(){
 
             const nav=useNavigate()
 
-            const {email,setEmail,password,setPassword}=useContext(myContext)
+            const {email,setEmail,password,setPassword,setToken}=useContext(myContext)
+
+            console.log("userEmail:",email);
+            console.log("userPassword",password);
             const Login = async ()=>{
                 try{
                     const response = await axios.post("http://localhost:5000/user/login",{
                         email,
                         password
+                    },
+                    {
+                        withCredentials:true,
                     })
+                    const data=response.data
                     console.log(response.data);
+                    console.log("token in frontEnd", data.token);
+        console.log("Login successful", data.message);
                     alert("Login Success!!!!")
                     nav("/home")
                 }catch(error){
