@@ -1,52 +1,50 @@
-// const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken")
 
-// const userMiddleware=(req,res,next)=>{
-//     // Get token from headers
-//     const token = req.cookies.token;
+const userMiddleware=(req,res,next)=>{
+    // Get token from headers
+    const token = req.cookies.token;
 
-//     console.log("Token in UserMiddleware:", token);
+    console.log("Token in UserMiddleware:", token);
 
-//       // Check if token exists
-//     if(!token){
-//         return res.status(401).json({message:"Unauthorized - No token provided"})
-//     }
-//     try{
-//         // Verify token
-//         const decoded= jwt.verify(token,process.env.JWT_SECRET)
-//        req.token=token
-//         next()  // Proceed to the next middleware or route handler
-//     }catch(error){
-//         res.status(401),json({message: 'Unauthorized - Invalid token'})
-//     }
-// }
+      // Check if token exists
+    if(!token){
+        return res.status(401).json({message:"Unauthorized - No token provided"})
+    }
+    try{
+        // Verify token
+        const decoded= jwt.verify(token,process.env.JWT_SECRET,{ignoreExpiration : true})
+       req.token=token
+        next()  // Proceed to the next middleware or route handler
+    }catch(error){
+      console.error('Error in userMiddleware:', error);
+        res.status(401).json({message: 'Unauthorized - Invalid token'})
+    }
+}
 
-
-// module.exports = userMiddleware;
-
-
-// userMiddileware.js
-
-const jwt = require('jsonwebtoken');
-
-const userMiddleware = (req, res, next) => {
-  const token = req.cookies.token;
-  console.log("token in userMiddileware", token);
-
-  if (!token) {
-    return res.status(401).json({ message: 'Auth failed' });
-  }
-
-  let decodedToken;
-
-  try {
-    decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-} catch (err) {
-    return res.status(401).json({ message: 'Auth failed' });
-  }
-
-  req.userData = { email: decodedToken.email, userId: decodedToken.userId };
-  next();
-};
 
 module.exports = userMiddleware;
 
+
+
+
+
+// const app = require("express");
+// const jwt = require("jsonwebtoken");
+
+// const cookieParser = require("cookie-parser");
+
+// const checkUserToken = (req, res, next) => {
+//   const token = req.cookies.token;
+//   console.log("token in UserMiddleware",token);
+//   if (!token) {
+//     return res.status(401).json({ message: "Token missing" });
+//   }
+//   try {
+//     const verified = jwt.verify(token, process.env.JWT_SECRET);
+//     req.user = token;
+//     next();
+//   } catch (err) {
+//     res.status(400).json({ error: "Invalid token" });
+//   }
+// };
+// module.exports = checkUserToken;
