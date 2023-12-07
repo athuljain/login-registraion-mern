@@ -38,7 +38,7 @@ const userLogin = async (req, res) => {
       });
 
       res.cookie("token",token,{httpOnly : true, secure:false})
-      res.setHeader("Authorization",token)
+     // res.setHeader("Authorization",token)
 
       res.status(200).json({message :"welcome user", token });
       // res.json({message : "welcome User"})
@@ -46,6 +46,7 @@ const userLogin = async (req, res) => {
       res.status(401).send("Invalid email or password");
     }
   } catch (error) {
+    console.error(error);
     res.status(500).send("Login failed");
   }
 };

@@ -44,7 +44,7 @@ function App() {
     token, setToken,
     products,setProducts
   }
-  console.log("front end token",token);
+  //console.log("front end token",token);
 
   return (
     <div className="App">
