@@ -2,6 +2,7 @@ import { useContext } from "react"
 import { myContext } from "../Context"
 import axios from 'axios'
 import { Link, useNavigate } from "react-router-dom"
+import "./Style/Registraion.css"
 
 export default function Register(){
 

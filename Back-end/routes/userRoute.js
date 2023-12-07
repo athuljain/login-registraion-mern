@@ -12,5 +12,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/register", user.userRegister);
 app.post("/login",  user.userLogin);
+app.get("/getProducts",user.userGetProducts)
 
 module.exports = app;

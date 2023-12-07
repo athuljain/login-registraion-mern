@@ -2,6 +2,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const schema = require("../model/userModel");
+const productDatas = require("../model/productModel");
+
 
 const userRegister = async (req, res) => {
   try {
@@ -52,7 +54,24 @@ const userLogin = async (req, res) => {
     res.status(500).send("Login failed");
   }
 };
+
+const userGetProducts = async (req, res) => {
+  try {
+    const allProducts = await productDatas.find();
+    res.status(200).json({ message: "All Product List", allProducts });
+  } catch (error) {
+    res
+      .status(404)
+      .json({ message: "All Product List Not Found: ", error: error.message });
+    console.log(error);
+  }
+};
+
+
+
+
 module.exports = {
   userRegister,
   userLogin,
+  userGetProducts,
 };
