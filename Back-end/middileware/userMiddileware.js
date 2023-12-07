@@ -28,23 +28,4 @@ const userMiddleware = (req, res, next) => {
 
 module.exports = userMiddleware;
 
-// const app = require("express");
-// const jwt = require("jsonwebtoken");
 
-// const cookieParser = require("cookie-parser");
-
-// const checkUserToken = (req, res, next) => {
-//   const token = req.cookies.token;
-//   console.log("token in UserMiddleware",token);
-//   if (!token) {
-//     return res.status(401).json({ message: "Token missing" });
-//   }
-//   try {
-//     const verified = jwt.verify(token, process.env.JWT_SECRET);
-//     req.user = token;
-//     next();
-//   } catch (err) {
-//     res.status(400).json({ error: "Invalid token" });
-//   }
-// };
-// module.exports = checkUserToken;

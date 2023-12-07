@@ -11,6 +11,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/register", user.userRegister);
-app.post("/login", userMiddleware, user.userLogin);
+app.post("/login",  user.userLogin);
 
 module.exports = app;

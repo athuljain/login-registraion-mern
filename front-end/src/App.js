@@ -34,6 +34,8 @@ function App() {
   const [token, setToken] = useState(null);
   const [products,setProducts]=useState([])
 
+  const [userToken, setUserToken] = useState(null);
+
   const values={
     email,setEmail,
     password,setPassword,
@@ -42,7 +44,8 @@ function App() {
     adminEmail, setAdminEmail,
     product,setProduct,
     token, setToken,
-    products,setProducts
+    products,setProducts,
+    userToken, setUserToken
   }
   //console.log("front end token",token);
 
