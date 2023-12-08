@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { myContext } from "../../Context";
 import axios from "axios";
+import "../Style/AdminProduct.css"
 
 export default function AdminProducts() {
   const { products, setProducts } = useContext(myContext);
@@ -55,13 +56,13 @@ export default function AdminProducts() {
     nav("/addProduct");
   }
   return (
-    <div>
-      <div>
-        <h1>Products</h1>
-        <button onClick={AddProduct}>Add Product</button>
+    <div className="admin-main">
+      <div className="admin-sub">
+        <h1 className="admin-head">Products</h1>
+        <button className="admin-add" onClick={AddProduct}>Add Product</button>
       </div>
-      <div>
-        <h2>Product List</h2>
+      <div className="admin-body">
+        <h2 className="admin-bodyHead">Product List</h2>
         <ul>
           {products.map((product) => (
             <li key={product._id}>
@@ -69,10 +70,10 @@ export default function AdminProducts() {
               <h5>{product.description}</h5>
               <h4>{product.price}</h4>
 
-              <button onClick={() => EditPage(product._id)}>
+              <button className="adminBtn" onClick={() => EditPage(product._id)}>
                 Edit Product
               </button>
-              <button onClick={() => DeleteBtn(product._id)}>
+              <button className="adminBtn"  onClick={() => DeleteBtn(product._id)}>
                 Delete Product
               </button>
             </li>

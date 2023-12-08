@@ -44,9 +44,11 @@ export default function Home() {
             {products.map((product) => (
             //   <li key={product._id}>
             <div className="body-card">
+              <img src={product.image} alt="img" ></img>
                 <h4>{product.title}</h4>
                 <h5>{product.description}</h5>
                 <h4>{product.price}</h4>
+
                 </div>
             //   </li>
             ))}
