@@ -28,6 +28,7 @@ export default function AdminAddProduct() {
         "http://localhost:5000/admin/products",
         product,
         {
+          withCredentials:true,
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
