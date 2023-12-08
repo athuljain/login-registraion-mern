@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { myContext } from "../Context.js";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import "./Style/Registraion.css"
+import "./Style/Login.css"
 
 export default function Login() {
   const nav = useNavigate();
@@ -39,23 +39,23 @@ export default function Login() {
     }
   };
   return (
-    <div>
-      <h1>Login</h1>
-      <input
+    <div className="login-container">
+      <h1 className="login-head">Login</h1>
+      <input className="login-input"
         type="email"
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />{" "}
       <br></br>
-      <input
+      <input className="login-input"
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />{" "}
       <br></br>
-      <button onClick={Login}>Login</button>
+      <button className="login-btn" onClick={Login}>Login</button>
       <p>Dont have account ?</p>
       <Link to={"/register"}>Sign Up</Link>
     </div>
