@@ -36,6 +36,7 @@ export default function AdminAddProduct() {
         }
       );
       alert("Prdoduct add successfully")
+      nav('/adminProducts')
 
       console.log("Product created successfully", response.data);
 

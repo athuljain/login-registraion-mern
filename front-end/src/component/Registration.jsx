@@ -35,36 +35,36 @@ export default function Register(){
 
 
     return(
-        <div>
-            <h1>Register</h1>
+        <div className="main-register">
+            <h1 className="main-head">Register</h1>
 
-            <input
+            <input className="reg-input"
         type="String"
         placeholder="Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
       /> <br></br>
 
-            <input
+            <input className="reg-input"
         type="email"
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       /> <br></br>
-      <input
+      <input className="reg-input"
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       /> <br></br>
-         <input
+         <input className="reg-input"
         type="password"
         placeholder="Confirm Password"
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
       /> <br></br>
 
-      <button onClick={Register}>Register</button>
+      <button className="reg-button" onClick={Register}>Register</button>
 
       <br></br>
       <p>You have account ?</p>
