@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { myContext } from "../../Context.js";
 import axios, { Axios } from "axios";
 import { useNavigate } from "react-router-dom";
+import "../Style/AdminLogin.css"
 
 const AdminLogin = () => {
   const { email, setEmail, password, setPassword, setToken } =
@@ -45,24 +46,24 @@ const AdminLogin = () => {
   };
 
   return (
-    <div>
-      <h2>Admin Login</h2>
-      <form>
-        <label>Email:</label>
-        <input
+    <div className="adminLogin-main">
+      <h2 className="adminLogin-head">Admin Login</h2>
+      <form className="adminLogin-Form">
+        <label className="adminLogin-Label">Email:</label>
+        <input className="adminLogin-Input"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <br />
-        <label>Password:</label>
-        <input
+        <label className="adminLogin-Label">Password:</label>
+        <input  className="adminLogin-Input"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />
-        <button type="button" onClick={handleLogin}>
+        <button className="adminLogin-Btn" type="button" onClick={handleLogin}>
           Login
         </button>
       </form>
