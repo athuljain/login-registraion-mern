@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { myContext } from "../Context";
 import "./Style/Home.css"
@@ -41,17 +41,18 @@ export default function Home() {
           <p>Loading...</p>
         ) : (
           <div className="bodyinner" style={{display:"flex"}}>
+            
             {products.map((product) => (
-            //   <li key={product._id}>
-            <div className="body-card">
-              <img src={product.image} alt="img" ></img>
-                <h4>{product.title}</h4>
-                <h5>{product.description}</h5>
-                <h4>{product.price}</h4>
+  <Link to={`/product/${product._id}`} key={product._id}>
+    <div className="body-card">
+      <img src={product.image} alt="img" />
+      <h4>{product.title}</h4>
+      <h5>{product.description}</h5>
+      <h4>{product.price}</h4>
+    </div>
+  </Link>
+))}
 
-                </div>
-            //   </li>
-            ))}
             </div>
           
         )}

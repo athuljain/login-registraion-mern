@@ -11,6 +11,7 @@ import AdminUsers from './component/Admin/AdminUsers.jsx';
 import AdminAddProduct from './component/Admin/AdminAddProduct.jsx';
 import AdminProducts from './component/Admin/AdminProducts.jsx';
 import AdminEditProduct from './component/Admin/AdminEditProduct.jsx';
+import SpecificProductPage from './component/SpecificProduct.jsx';
 
 function App() {
 
@@ -36,6 +37,8 @@ function App() {
 
   const [userToken, setUserToken] = useState(null);
 
+  const [specificProduct, setSpecificProduct]=useState({})
+
   const values={
     email,setEmail,
     password,setPassword,
@@ -45,7 +48,8 @@ function App() {
     product,setProduct,
     token, setToken,
     products,setProducts,
-    userToken, setUserToken
+    userToken, setUserToken,
+    specificProduct, setSpecificProduct
   }
   //console.log("front end token",token);
 
@@ -64,6 +68,7 @@ function App() {
             <Route path='/register' element={<Register />}/>
             <Route path='/' element={<Login />} />
             <Route path='/home' element={<Home />} />
+            <Route path='/product/:productId' element={<SpecificProductPage />} />
         </Routes>
         </myContext.Provider>
       </BrowserRouter>
