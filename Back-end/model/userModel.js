@@ -9,6 +9,12 @@
          unique: true },
     password: String,
     confirmPassword  : String,
+    cart: [
+      {
+        type: String,
+        required: false,
+      },
+    ],
 
   });
   

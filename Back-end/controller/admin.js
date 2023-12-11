@@ -128,34 +128,7 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-// // user can get product by category wise
-// const getCategoryWise = async (req, res) => {
-//   const categoryList = req.params.category;
-//   try {
-//     let categoryProducts;
-//     if (categoryList.toLowerCase() === "laptop") {
-//       categoryProducts = await productDatas.find({
-//         category: { $in: "laptop" },
-//       });
-//       return res.json(categoryProducts);
-//     }
-//     if (categoryList.toLowerCase() === "phone") {
-//       categoryProducts = await productDatas.find({
-//         category: { $in: "phone" },
-//       });
-//       return res.json(categoryProducts);
-//     }
-//     categoryProducts = await productDatas.find({
-//       category: { $in: categoryList },
-//     });
-//     return res.json(categoryProducts);
-//   } catch (error) {
-//     console.log(error);
-//     res
-//       .status(500)
-//       .json({ message: "Internal Server Error", error: error.message });
-//   }
-// };
+
 
 
 
@@ -165,6 +138,6 @@ module.exports = {
   getProducts,
   updateProduct,
   deleteProduct,
-  //getCategoryWise,
-  
+
+
 };

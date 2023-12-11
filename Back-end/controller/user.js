@@ -88,6 +88,63 @@ const specificProduct = async (req, res) => {
 };
 
 
+// // user can get product by category wise
+// const getCategoryWise = async (req, res) => {
+//   const categoryList = req.params.category;
+//   try {
+//     let categoryProducts;
+//     if (categoryList.toLowerCase() === "laptop") {
+//       categoryProducts = await productDatas.find({
+//         category: { $in: "laptop" },
+//       });
+//       return res.json(categoryProducts);
+//     }
+//     if (categoryList.toLowerCase() === "phone") {
+//       categoryProducts = await productDatas.find({
+//         category: { $in: "phone" },
+//       });
+//       return res.json(categoryProducts);
+//     }
+//     categoryProducts = await productDatas.find({
+//       category: { $in: categoryList },
+//     });
+//     return res.json(categoryProducts);
+//   } catch (error) {
+//     console.log(error);
+//     res
+//       .status(500)
+//       .json({ message: "Internal Server Error", error: error.message });
+//   }
+// };
+
+
+
+// user add product to cart
+
+const addToCart = async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const product = await productDatas.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    const token = req.cookies.token;
+    const decoded = jwt.verify(token, "secretkey");
+    const user = await schema.findOne({ email: decoded.email });
+
+    // add the product to the cart
+    user.cart.push(productId);
+    await user.save();
+
+    res
+      .status(200)
+      .json({ message: "Product added to cart successfully", product });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "server error", error: err.message });
+  }
+};
+
 
 
 
@@ -97,4 +154,5 @@ module.exports = {
   userLogin,
   userGetProducts,
   specificProduct,
+  addToCart ,
 };
