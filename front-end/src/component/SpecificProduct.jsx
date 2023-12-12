@@ -14,9 +14,7 @@ export default function SpecificProductPage() {
   const fetchSpecificProduct = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:5000/user/products/
-      
-      ${productId}`, {
+      const response = await axios.get(`http://localhost:5000/user/products/${productId}`, {
         withCredentials: true,
       });
       setSpecificProduct(response.data.specificProduct);
