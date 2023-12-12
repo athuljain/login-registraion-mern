@@ -39,7 +39,7 @@ const userLogin = async (req, res) => {
         expiresIn:"1hr"
       });
 
-      res.cookie("token", token, { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60,sameSite: 'None' });
+      res.cookie("token", token, { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60, });
       res.setHeader("Authorization", token);
       console.log(token, "requested token");
     

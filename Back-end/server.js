@@ -1,7 +1,6 @@
 const express = require('express')
 const mongoose= require('mongoose')
-// const bcrypt=require('bcrypt')
-// const jwt = require('jsonwebtoken')
+
 const cors = require('cors')
 require('dotenv').config()
 const cookieParser = require('cookie-parser')
@@ -18,11 +17,6 @@ app.use(cors({
 }))
 
 
-
-// app.use(cors({origin: 'http://localhost:3000', 
-// methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-// credentials: true,
-// }))
 app.use(cookieParser())
 
 
@@ -42,7 +36,7 @@ mongoose
     console.log("connection failed");
   });
 
-// app.use(cookieParser())
+
 //admin routes
 
 const adminRoute=require('./routes/adminRoute')
