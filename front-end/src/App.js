@@ -42,6 +42,7 @@ function App() {
   const values={
     email,setEmail,
     password,setPassword,
+    
     name,setName,confirmPassword,setConfirmPassword,
     //adminPassword, setAdminPassword,
     adminEmail, setAdminEmail,
