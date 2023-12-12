@@ -39,13 +39,14 @@ const userLogin = async (req, res) => {
         expiresIn:"1hr"
       });
 
-      // res.cookie("token",token,{httpOnly : true, secure:false})
-      res.cookie("token", token, { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60 });
+      res.cookie("token", token, { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60,sameSite: 'None' });
+      res.setHeader("Authorization", token);
+      console.log(token, "requested token");
+    
+      
 
-      res.setHeader("Authorization", `Bearer ${token}`);
+      res.status(200).json({message :"welcome user", token});
 
-      res.status(200).json({message :"welcome user", token });
-      // res.json({message : "welcome User"})
     } else {
       res.status(401).send("Invalid email or password");
     }
@@ -53,7 +54,9 @@ const userLogin = async (req, res) => {
     console.error(error);
     res.status(500).send("Login failed");
   }
+ 
 };
+
 
 const userGetProducts = async (req, res) => {
   try {
