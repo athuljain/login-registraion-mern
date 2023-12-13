@@ -78,6 +78,7 @@ export default function Home() {
                   <h4>{product.title}</h4>
                   <h5>{product.description}</h5>
                   <h4>{product.price}</h4>
+                  <button>Add To Cart</button>
                 </div>
               </Link>
             ))}

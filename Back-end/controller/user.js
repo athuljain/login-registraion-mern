@@ -132,7 +132,7 @@ const addToCart = async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
     const token = req.cookies.token;
-    const decoded = jwt.verify(token, "secretkey");
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await schema.findOne({ email: decoded.email });
 
     // add the product to the cart
