@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { myContext } from "../Context";
 
-
 const Laptop = () => {
   const { products, setProducts } = useContext(myContext);
   const [loading, setLoading] = useState(false);
@@ -11,9 +10,12 @@ const Laptop = () => {
   const fetchLaptopProducts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:5000/user/products/category/laptop", {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        "http://localhost:5000/user/products/category/laptop",
+        {
+          withCredentials: true,
+        }
+      );
       setProducts(response.data);
     } catch (error) {
       console.error("Error fetching laptop products:", error);
