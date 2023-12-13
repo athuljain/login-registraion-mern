@@ -6,7 +6,7 @@ import { myContext } from "../Context";
 import "./Style/Home.css";
 
 export default function Home() {
-  const { products, setProducts } = useContext(myContext);
+  const { products, setProducts,userToken,setUserToken } = useContext(myContext);
   const [loading, setLoading] = useState(false);
   const nav = useNavigate();
 
@@ -60,6 +60,29 @@ export default function Home() {
     fetchProducts();
   }, []);
 
+
+  const handleAddToCart = async (productId) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/user/products/cart/${productId}`,
+        {},
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
+      setUserToken(response.data.user.token); // Update the user token
+
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
+  };
+
+
+
+
   return (
     <div className="container">
       <div className="sub-Container">
@@ -71,17 +94,17 @@ export default function Home() {
           <p>Loading...</p>
         ) : (
           <div className="bodyinner" style={{ display: "flex" }}>
-            {products.map((product) => (
-              <Link to={`/product/${product._id}`} key={product._id}>
-                <div className="body-card">
-                  <img src={product.image} alt="img" />
-                  <h4>{product.title}</h4>
-                  <h5>{product.description}</h5>
-                  <h4>{product.price}</h4>
-                  <button>Add To Cart</button>
-                </div>
-              </Link>
-            ))}
+          {products.map((product) => (
+  <div className="body-card" key={product._id}>
+    <Link to={`/product/${product._id}`}>
+      <img src={product.image} alt="img" />
+    </Link>
+    <h4>{product.title}</h4>
+    <h5>{product.description}</h5>
+    <h4>{product.price}</h4>
+    <button onClick={() => handleAddToCart(product._id)}>Add To Cart</button>
+  </div>
+))}
           </div>
         )}
       </div>

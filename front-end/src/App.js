@@ -14,6 +14,7 @@ import AdminEditProduct from './component/Admin/AdminEditProduct.jsx';
 import SpecificProductPage from './component/SpecificProduct.jsx';
 import Laptop from './component/Laptop.jsx';
 import Phone from './component/Phone.jsx';
+import Cart from './component/Cart.jsx';
 
 function App() {
 
@@ -74,6 +75,7 @@ function App() {
             <Route path='/product/:productId' element={<SpecificProductPage />} />
             <Route path="/laptops" element={<Laptop  />} />
             <Route path='/phones' element={<Phone />}/>
+            <Route path='/cart' element={<Cart />}/>
         </Routes>
         </myContext.Provider>
       </BrowserRouter>
