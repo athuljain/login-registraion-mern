@@ -28,10 +28,11 @@ export default function Home() {
   };
 
   // Fetch products by category
+
   const fetchProductsByCategory = async (category) => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:5000/user/getCategoryWise/${category}`, {
+      const response = await axios.get(`http://localhost:5000/user/products/category/${category}`, {
         withCredentials: true,
       });
       setProducts(response.data);
@@ -40,6 +41,16 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleGetLaptopProducts = () => {
+    fetchProductsByCategory('laptop');
+    nav(`/laptops`); // Navigate to the /laptops route
+  };
+  
+  const handleGetPhoneProducts = () => {
+    fetchProductsByCategory('phone');
+    nav(`/phones`)
   };
 
   useEffect(() => {
@@ -71,13 +82,13 @@ export default function Home() {
         )}
       </div>
       <div>
-        <button onClick={() => fetchProductsByCategory("laptop")}>
-          Get Laptop Products
-        </button>
-        <button onClick={() => fetchProductsByCategory("phone")}>
-          Get Phone Products
-        </button>
-        {/* Add more buttons for other categories as needed */}
+      <button onClick={handleGetLaptopProducts}>
+  Get Laptop Products
+</button>
+<button onClick={handleGetPhoneProducts}>
+  Get Phone Products
+</button>
+      
       </div>
     </div>
   );
