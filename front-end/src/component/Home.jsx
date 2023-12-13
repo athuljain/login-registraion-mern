@@ -1,6 +1,3 @@
-
-
-
 // Home.jsx
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,9 +13,12 @@ export default function Home() {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:5000/user/getProducts", {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        "http://localhost:5000/user/getProducts",
+        {
+          withCredentials: true,
+        }
+      );
       setProducts(response.data.allProducts);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -32,9 +32,12 @@ export default function Home() {
   const fetchProductsByCategory = async (category) => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:5000/user/products/category/${category}`, {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        `http://localhost:5000/user/products/category/${category}`,
+        {
+          withCredentials: true,
+        }
+      );
       setProducts(response.data);
     } catch (error) {
       console.error(`Error fetching ${category} products:`, error);
@@ -44,13 +47,13 @@ export default function Home() {
   };
 
   const handleGetLaptopProducts = () => {
-    fetchProductsByCategory('laptop');
+    fetchProductsByCategory("laptop");
     nav(`/laptops`); // Navigate to the /laptops route
   };
-  
+
   const handleGetPhoneProducts = () => {
-    fetchProductsByCategory('phone');
-    nav(`/phones`)
+    fetchProductsByCategory("phone");
+    nav(`/phones`);
   };
 
   useEffect(() => {
@@ -68,27 +71,22 @@ export default function Home() {
           <p>Loading...</p>
         ) : (
           <div className="bodyinner" style={{ display: "flex" }}>
-                      {products.map((product) => (
-  <Link to={`/product/${product._id}`} key={product._id}>
-    <div className="body-card">
-      <img src={product.image} alt="img" />
-      <h4>{product.title}</h4>
-      <h5>{product.description}</h5>
-      <h4>{product.price}</h4>
-    </div>
-  </Link>
-))}
+            {products.map((product) => (
+              <Link to={`/product/${product._id}`} key={product._id}>
+                <div className="body-card">
+                  <img src={product.image} alt="img" />
+                  <h4>{product.title}</h4>
+                  <h5>{product.description}</h5>
+                  <h4>{product.price}</h4>
+                </div>
+              </Link>
+            ))}
           </div>
         )}
       </div>
       <div>
-      <button onClick={handleGetLaptopProducts}>
-  Get Laptop Products
-</button>
-<button onClick={handleGetPhoneProducts}>
-  Get Phone Products
-</button>
-      
+        <button onClick={handleGetLaptopProducts}>Get Laptop Products</button>
+        <button onClick={handleGetPhoneProducts}>Get Phone Products</button>
       </div>
     </div>
   );
