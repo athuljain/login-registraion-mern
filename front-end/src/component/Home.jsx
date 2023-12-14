@@ -63,6 +63,9 @@ export default function Home() {
 
   const handleAddToCart = async (productId) => {
     try {
+      if(!userToken){
+        console.log("user not authenticated");
+      }
       const response = await axios.post(
         `http://localhost:5000/user/products/cart/${productId}`,
         {},
@@ -74,7 +77,7 @@ export default function Home() {
         }
       );
       setUserToken(response.data.user.token); // Update the user token
-
+     
     } catch (error) {
       console.error("Error adding to cart:", error);
     }
