@@ -77,8 +77,10 @@ export default function Home() {
         }
       );
       setUserToken(response.data.user.token); // Update the user token
+      alert("product added to cart")
      
     } catch (error) {
+      alert("Error adding to cart")
       console.error("Error adding to cart:", error);
     }
   };

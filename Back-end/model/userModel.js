@@ -9,7 +9,12 @@
          unique: true },
     password: String,
     confirmPassword  : String,
-    cart: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
+    cart: [
+      {
+        type: String,
+        required: false,
+      },
+    ],
 
   });
   

@@ -135,6 +135,7 @@ const addToCart = async (req, res) => {
     console.log("recevied token",token);
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await schema.findOne({ email: decoded.email });
+    
 
     // add the product to the cart
     user.cart.push(productId);
