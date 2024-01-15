@@ -135,14 +135,20 @@ const addToCart = async (req, res) => {
     console.log("recevied token",token);
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await schema.findOne({ email: decoded.email });
-    
+
+    // Check if the product is already in the cart
+    if (user.cart.includes(productId)) {
+      return res.status(400).json({ message: "Product is already in the cart" });
+    }
+
+    const updatedUser = await schema.findById(user._id).populate('cart');
 
     // add the product to the cart
     user.cart.push(productId);
     await user.save();
 
   //  const updatedUser = await schema.findOne({ email: decoded.email });
-  const updatedUser = await user.findById(user._id).populate('cart');
+  // const updatedUser = await user.findById(user._id).populate('cart');
 res
   .status(200)
   .json({ message: "Product added to cart successfully", user: updatedUser });
@@ -156,7 +162,22 @@ res
   }
 };
 
+const getCart = async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await schema.findOne({ email: decoded.email }).populate('cart');
 
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ cart: user.cart });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Server error", errorMessage: err.message });
+  }
+};
 
 
 
@@ -167,4 +188,5 @@ module.exports = {
   specificProduct,
   addToCart ,
   getCategoryWise,
+  getCart,
 };
