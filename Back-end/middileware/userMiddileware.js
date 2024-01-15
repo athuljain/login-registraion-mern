@@ -23,6 +23,8 @@ const userMiddleware = (req, res, next) => {
 
     console.log('Decoded Token:', decoded);
 
+    
+
     // Attach user information to the request object
     req.user = decoded;
 
