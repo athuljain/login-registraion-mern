@@ -6,7 +6,7 @@ import { myContext } from "../Context";
 import "./Style/Home.css";
 
 export default function Home() {
-  const { products, setProducts,userToken,setUserToken } = useContext(myContext);
+  const { products, setProducts,userToken, } = useContext(myContext);
   const [loading, setLoading] = useState(false);
   const nav = useNavigate();
 
@@ -56,16 +56,8 @@ export default function Home() {
     nav(`/phones`);
   };
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-
   const handleAddToCart = async (productId) => {
     try {
-      if(!userToken){
-        console.log("user not authenticated");
-      }
       const response = await axios.post(
         `http://localhost:5000/user/products/cart/${productId}`,
         {},
@@ -76,16 +68,16 @@ export default function Home() {
           },
         }
       );
-      setUserToken(response.data.user.token); // Update the user token
-      alert("product added to cart")
-     
+      console.log(response.data.message); // Log the response message
     } catch (error) {
-      alert("Error adding to cart")
       console.error("Error adding to cart:", error);
     }
   };
 
 
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
 
   return (
