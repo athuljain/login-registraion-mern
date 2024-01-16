@@ -60,7 +60,7 @@ export default function Home() {
     try {
       const response = await axios.post(
         `http://localhost:5000/user/products/cart/${productId}`,
-        {},
+        null,
         {
           withCredentials: true,
           headers: {
@@ -77,12 +77,13 @@ export default function Home() {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  },[]);
 
 
   return (
     <div className="container">
       <div className="sub-Container">
+        <Link to={'/cart'}>Cart</Link>
         <h1 className="Home-Head">Home Page</h1>
       </div>
       <div className="HomeMainBoady">

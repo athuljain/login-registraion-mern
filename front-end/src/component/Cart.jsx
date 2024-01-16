@@ -9,7 +9,7 @@ export default function Cart() {
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/user/products/cart", {
+        const response = await axios.get("http://localhost:5000/user/cart", {
           withCredentials: true,
           headers: {
             Authorization: `Bearer ${userToken}`,

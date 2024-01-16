@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const cookieParser=require('cookie-parser')
 
 const userMiddleware = (req, res, next) => {
-  // const token = req.cookies.token;
+  //const token = req.cookies.token;
   const token = req.headers.authorization || req.cookies.token;
 
   
@@ -33,6 +33,9 @@ const userMiddleware = (req, res, next) => {
     console.error('Error in userMiddleware:', error);
     res.status(401).json({ message: 'Unauthorized - Invalid token' });
   }
+
+
+
 };
 
 module.exports = userMiddleware;
