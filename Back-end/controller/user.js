@@ -147,6 +147,7 @@ const addToCart = async (req, res) => {
     user.cart.push(productId);
     await user.save();
 
+    
   //  const updatedUser = await schema.findOne({ email: decoded.email });
   // const updatedUser = await user.findById(user._id).populate('cart');
 res

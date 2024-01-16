@@ -56,8 +56,35 @@ export default function Home() {
     nav(`/phones`);
   };
 
+  // const handleAddToCart = async (productId) => {
+  //   try {
+  //     const response = await axios.post(
+  //       `http://localhost:5000/user/products/cart/${productId}`,
+  //       null,
+  //       {
+  //         withCredentials: true,
+  //         headers: {
+  //           Authorization: `Bearer ${userToken}`,
+  //           'Content-Type': 'application/json', // Add this line
+  //         },
+  //       }
+  //     );
+  //     console.log(response.data.message); // Log the response message
+  //   } catch (error) {
+  //     console.error("Error adding to cart:", error);
+  //   }
+  // };
+  
+
+
   const handleAddToCart = async (productId) => {
     try {
+      if (!userToken) {
+        console.error("User not authenticated");
+        // Handle the case where the user is not authenticated
+        return;
+      }
+  
       const response = await axios.post(
         `http://localhost:5000/user/products/cart/${productId}`,
         null,
@@ -65,6 +92,7 @@ export default function Home() {
           withCredentials: true,
           headers: {
             Authorization: `Bearer ${userToken}`,
+            'Content-Type': 'application/json',
           },
         }
       );
@@ -73,7 +101,7 @@ export default function Home() {
       console.error("Error adding to cart:", error);
     }
   };
-
+  
 
   useEffect(() => {
     fetchProducts();
