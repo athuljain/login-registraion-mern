@@ -6,8 +6,6 @@ const userMiddleware = (req, res, next) => {
   //const token = req.cookies.token;
   const token = req.headers.authorization || req.cookies.token;
 
-  
-
   console.log('Token in UserMiddleware:', token);
 
   // Check if token exists
@@ -23,8 +21,6 @@ const userMiddleware = (req, res, next) => {
 
     console.log('Decoded Token:', decoded);
 
-    
-
     // Attach user information to the request object
     req.user = decoded;
 
@@ -33,8 +29,6 @@ const userMiddleware = (req, res, next) => {
     console.error('Error in userMiddleware:', error);
     res.status(401).json({ message: 'Unauthorized - Invalid token' });
   }
-
-
 
 };
 

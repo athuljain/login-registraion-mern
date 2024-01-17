@@ -147,16 +147,9 @@ const addToCart = async (req, res) => {
     user.cart.push(productId);
     await user.save();
 
-    
-  //  const updatedUser = await schema.findOne({ email: decoded.email });
-  // const updatedUser = await user.findById(user._id).populate('cart');
 res
   .status(200)
   .json({ message: "Product added to cart successfully", user: updatedUser });
-
-    // res
-    //   .status(200)
-    //   .json({ message: "Product added to cart successfully", product });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "server error", error: err.message });
