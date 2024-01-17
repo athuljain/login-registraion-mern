@@ -56,6 +56,27 @@ export default function Home() {
     nav(`/phones`);
   };
 
+  // const handleAddToCart = async (productId) => {
+  //   try {
+  //     const response = await axios.post(
+  //       `http://localhost:5000/user/products/cart/${productId}`,
+  //       {},
+  //       { withCredentials: true }
+  //     );
+
+  //     console.log("Response from server:", response.data);
+  //     alert("product added to cart")
+
+  //     // Update the user's cart in the context or state as needed
+      
+
+  //   } catch (error) {
+  //     console.error("Error adding to cart:", error);
+  //     // Handle errors appropriately, e.g., display error message to user
+  //   }
+  // };
+
+
   const handleAddToCart = async (productId) => {
     try {
       const response = await axios.post(
@@ -63,16 +84,20 @@ export default function Home() {
         {},
         { withCredentials: true }
       );
-
-      console.log("Response from server:", response.data);
-      alert("product added to cart")
-
-      // Update the user's cart in the context or state as needed
-      
-
+  
+      if (response.status === 200) {
+        console.log("Product added to cart successfully");
+        alert("Product added to cart");
+        
+      }else if (response.status === 409) {
+        alert("Product is already in the cart");
+      } else {
+        console.error("Error adding to cart:", response.data);
+        alert("Error adding product to cart");
+      }
     } catch (error) {
       console.error("Error adding to cart:", error);
-      // Handle errors appropriately, e.g., display error message to user
+      alert("Error adding product to cart");
     }
   };
 

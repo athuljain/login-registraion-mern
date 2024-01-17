@@ -138,7 +138,9 @@ const addToCart = async (req, res) => {
 
     // Check if the product is already in the cart
     if (user.cart.includes(productId)) {
-      return res.status(400).json({ message: "Product is already in the cart" });
+      return res
+        .status(409) // More appropriate status code for conflict
+        .json({ message: "Product is already in the cart" });
     }
 
     const updatedUser = await schema.findById(user._id).populate('cart');
