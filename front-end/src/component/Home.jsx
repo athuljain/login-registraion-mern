@@ -56,51 +56,26 @@ export default function Home() {
     nav(`/phones`);
   };
 
-  // const handleAddToCart = async (productId) => {
-  //   try {
-  //     const response = await axios.post(
-  //       `http://localhost:5000/user/products/cart/${productId}`,
-  //       null,
-  //       {
-  //         withCredentials: true,
-  //         headers: {
-  //           Authorization: `Bearer ${userToken}`,
-  //           'Content-Type': 'application/json', // Add this line
-  //         },
-  //       }
-  //     );
-  //     console.log(response.data.message); // Log the response message
-  //   } catch (error) {
-  //     console.error("Error adding to cart:", error);
-  //   }
-  // };
-  
-
-
   const handleAddToCart = async (productId) => {
     try {
-      if (!userToken) {
-        console.error("User not authenticated");
-        // Handle the case where the user is not authenticated
-        return;
-      }
-  
       const response = await axios.post(
         `http://localhost:5000/user/products/cart/${productId}`,
-        null,
-        {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-            'Content-Type': 'application/json',
-          },
-        }
+        {},
+        { withCredentials: true }
       );
-      console.log(response.data.message); // Log the response message
+
+      console.log("Response from server:", response.data);
+      alert("product added to cart")
+
+      // Update the user's cart in the context or state as needed
+      
+
     } catch (error) {
       console.error("Error adding to cart:", error);
+      // Handle errors appropriately, e.g., display error message to user
     }
   };
+
   
 
   useEffect(() => {
