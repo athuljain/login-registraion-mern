@@ -143,11 +143,14 @@ const addToCart = async (req, res) => {
         .json({ message: "Product is already in the cart" });
     }
 
-    const updatedUser = await schema.findById(user._id).populate('cart');
 
-    // add the product to the cart
+     // add the product to the cart
     user.cart.push(productId);
     await user.save();
+
+    const updatedUser = await schema.findById(user._id).populate('cart');
+
+   
 
 res
   .status(200)
