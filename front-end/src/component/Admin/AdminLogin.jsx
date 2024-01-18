@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { myContext } from "../../Context.js";
 import axios, { Axios } from "axios";
 import { useNavigate } from "react-router-dom";
-import "../Style/AdminLogin.css"
+import "../Style/AdminLogin.css";
 
 const AdminLogin = () => {
   const { email, setEmail, password, setPassword, setToken } =
@@ -50,14 +50,16 @@ const AdminLogin = () => {
       <h2 className="adminLogin-head">Admin Login</h2>
       <form className="adminLogin-Form">
         <label className="adminLogin-Label">Email:</label>
-        <input className="adminLogin-Input"
+        <input
+          className="adminLogin-Input"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <br />
         <label className="adminLogin-Label">Password:</label>
-        <input  className="adminLogin-Input"
+        <input
+          className="adminLogin-Input"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}

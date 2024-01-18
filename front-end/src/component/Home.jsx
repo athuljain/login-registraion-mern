@@ -96,7 +96,7 @@ export default function Home() {
         // Refresh products after adding to cart
         fetchProducts();
       } else if (response.status === 200) {
-        alert("Product is in the cart");
+        alert("Product added to cart");
       } else {
         console.error("Error adding to cart:", response.data);
         alert("Error adding product to cart");

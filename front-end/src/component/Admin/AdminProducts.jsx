@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { myContext } from "../../Context";
 import axios from "axios";
-import "../Style/AdminProduct.css"
+import "../Style/AdminProduct.css";
 
 export default function AdminProducts() {
   const { products, setProducts } = useContext(myContext);
@@ -59,7 +59,9 @@ export default function AdminProducts() {
     <div className="admin-main">
       <div className="admin-sub">
         <h1 className="admin-head">Products</h1>
-        <button className="admin-add" onClick={AddProduct}>Add Product</button>
+        <button className="admin-add" onClick={AddProduct}>
+          Add Product
+        </button>
       </div>
       <div className="admin-body">
         <h2 className="admin-bodyHead">Product List</h2>
@@ -70,10 +72,16 @@ export default function AdminProducts() {
               <h5>{product.description}</h5>
               <h4>{product.price}</h4>
 
-              <button className="adminBtn" onClick={() => EditPage(product._id)}>
+              <button
+                className="adminBtn"
+                onClick={() => EditPage(product._id)}
+              >
                 Edit Product
               </button>
-              <button className="adminBtn"  onClick={() => DeleteBtn(product._id)}>
+              <button
+                className="adminBtn"
+                onClick={() => DeleteBtn(product._id)}
+              >
                 Delete Product
               </button>
             </li>
