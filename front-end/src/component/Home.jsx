@@ -56,6 +56,7 @@ export default function Home() {
     nav(`/phones`);
   };
 
+
   // const handleAddToCart = async (productId) => {
   //   try {
   //     const response = await axios.post(
@@ -63,16 +64,20 @@ export default function Home() {
   //       {},
   //       { withCredentials: true }
   //     );
-
-  //     console.log("Response from server:", response.data);
-  //     alert("product added to cart")
-
-  //     // Update the user's cart in the context or state as needed
-      
-
+  
+  //     if (response.status === 200) {
+  //       console.log("Product added to cart successfully");
+  //       alert("Product added to cart");
+        
+  //     }else if (response.status === 409) {
+  //       alert("Product is already in the cart");
+  //     } else {
+  //       console.error("Error adding to cart:", response.data);
+  //       alert("Error adding product to cart");
+  //     }
   //   } catch (error) {
   //     console.error("Error adding to cart:", error);
-  //     // Handle errors appropriately, e.g., display error message to user
+  //     alert("Error adding product to cart");
   //   }
   // };
 
@@ -84,12 +89,13 @@ export default function Home() {
         {},
         { withCredentials: true }
       );
-  
+
       if (response.status === 200) {
         console.log("Product added to cart successfully");
         alert("Product added to cart");
-        
-      }else if (response.status === 409) {
+        // Refresh products after adding to cart
+        fetchProducts();
+      } else if (response.status === 409) {
         alert("Product is already in the cart");
       } else {
         console.error("Error adding to cart:", response.data);
@@ -101,6 +107,28 @@ export default function Home() {
     }
   };
 
+
+  const handleRemoveFromCart = async (productId) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/user/products/cart/${productId}`,
+        { withCredentials: true }
+      );
+
+      if (response.status === 200) {
+        console.log("Product removed from cart successfully");
+        alert("Product removed from cart");
+        // Refresh products after removing from cart
+        fetchProducts();
+      } else {
+        console.error("Error removing from cart:", response.data);
+        alert("Error removing product from cart");
+      }
+    } catch (error) {
+      console.error("Error removing from cart:", error);
+      alert("Error removing product from cart");
+    }
+  };
   
 
   useEffect(() => {
@@ -128,7 +156,20 @@ export default function Home() {
     <h4>{product.title}</h4>
     <h5>{product.description}</h5>
     <h4>{product.price}</h4>
-    <button onClick={() => handleAddToCart(product._id)}>Add To Cart</button>
+    {userToken ?(
+    userToken.cart.includes(product._id)?(
+       <button onClick={() => handleRemoveFromCart(product._id)}>
+       Remove From Cart
+     </button>
+    ):(
+      <button onClick={() => handleAddToCart(product._id)}>
+      Add To Cart
+    </button>
+    )
+    ):(
+      <p>Login to add to cart</p>
+    )}
+    
   </div>
 ))}
           </div>

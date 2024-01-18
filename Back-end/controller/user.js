@@ -158,6 +158,45 @@ res
   }
 };
 
+
+
+const removeFromCart = async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const product = await productDatas.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    const token = req.cookies.token;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await schema.findOne({ email: decoded.email });
+
+    // Check if the product is in the cart
+    const index = user.cart.indexOf(productId);
+
+    if (index === -1) {
+      return res.status(404).json({ message: "Product not in the cart" });
+    }
+
+    // Remove the product from the cart
+    user.cart.splice(index, 1);
+    await user.save();
+
+    res.status(200).json({ message: "Product removed from cart successfully" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Server error", error: err.message });
+  }
+};
+
+
+
+
+
+
+
 const getCart = async (req, res) => {
   try {
     const token = req.cookies.token;
@@ -185,4 +224,5 @@ module.exports = {
   addToCart ,
   getCategoryWise,
   getCart,
+  removeFromCart,
 };
