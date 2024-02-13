@@ -43,8 +43,6 @@ const userLogin = async (req, res) => {
       res.setHeader("Authorization", token);
       console.log(token, "requested token");
     
-      
-
       res.status(200).json({message :"welcome user", token});
 
     } else {
@@ -54,7 +52,6 @@ const userLogin = async (req, res) => {
     console.error(error);
     res.status(500).send("Login failed");
   }
- 
 };
 
 

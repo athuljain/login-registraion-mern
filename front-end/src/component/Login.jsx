@@ -2,12 +2,12 @@ import { useContext } from "react";
 import { myContext } from "../Context.js";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import "./Style/Login.css"
+import "./Style/Login.css";
 
 export default function Login() {
   const nav = useNavigate();
 
-  const { email, setEmail, password, setPassword, userToken, setUserToken } =
+  const { email, setEmail, password, setPassword, setUserToken } =
     useContext(myContext);
 
   console.log("userEmail:", email);
@@ -22,7 +22,6 @@ export default function Login() {
           password,
         },
         {
-          
           withCredentials: true,
         }
       );
@@ -30,7 +29,7 @@ export default function Login() {
       console.log(response.data);
       console.log("token in frontEnd", data.token);
       console.log("Login successful", data.message);
-      setUserToken(data.token)
+      setUserToken(data.token);
       alert("Login Success!!!!");
       nav("/home");
     } catch (error) {
@@ -41,21 +40,25 @@ export default function Login() {
   return (
     <div className="login-container">
       <h1 className="login-head">Login</h1>
-      <input className="login-input"
+      <input
+        className="login-input"
         type="email"
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />{" "}
       <br></br>
-      <input className="login-input"
+      <input
+        className="login-input"
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />{" "}
       <br></br>
-      <button className="login-btn" onClick={Login}>Login</button>
+      <button className="login-btn" onClick={Login}>
+        Login
+      </button>
       <p>Dont have account ?</p>
       <Link to={"/register"}>Sign Up</Link>
     </div>
