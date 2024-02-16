@@ -4,32 +4,31 @@ import { myContext } from "../Context";
 
 export default function Cart() {
   const { userToken } = useContext(myContext);
-  const [cartItems, setCartItems] = useState([]);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    const fetchCartItems = async () => {
+    const fetchCart = async () => {
       try {
         const response = await axios.get("http://localhost:5000/user/cart", {
-          withCredentials: true,
           headers: {
-            Authorization: `Bearer ${userToken}`,
+            Authorization: `Bearer ${userToken}`, // Assuming you're using JWT for authorization
           },
         });
-        setCartItems(response.data.cart);
+        setCart(response.data.cart);
       } catch (error) {
-        console.error("Error fetching cart items:", error);
+        console.error("Error fetching cart:", error);
       }
     };
 
-    fetchCartItems();
-  }, [userToken]);
+    fetchCart();
+  }, [userToken]); // Trigger fetchCart when userToken changes
 
   return (
     <div>
       <h1>Cart Page</h1>
       <ul>
-        {cartItems.map((item) => (
-          <li key={item._id}>{item.title}</li>
+        {cart.map((product) => (
+          <li key={product._id}>{product.name} - {product.price}</li>
         ))}
       </ul>
     </div>
