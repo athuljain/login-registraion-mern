@@ -69,6 +69,7 @@ export default function AdminProducts() {
           {products.map((product) => (
             <li key={product._id}>
               <h4> {product.title} </h4>
+              <img src={product.image} alt="img"></img>
               <h5>{product.description}</h5>
               <h4>{product.price}</h4>
 

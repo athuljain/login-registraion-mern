@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const schema = require("../model/userModel");
 const productDatas = require("../model/productModel");
 
-
 const userRegister = async (req, res) => {
   try {
     const { name, email, password, confirmPassword } = req.body;
@@ -35,16 +34,19 @@ const userLogin = async (req, res) => {
     const user = await schema.findOne({ email });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET,{
-        expiresIn:"1hr"
+      const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
+        expiresIn: "1hr",
       });
 
-      res.cookie("token", token, { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60, });
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 1000 * 60 * 60,
+      });
       res.setHeader("Authorization", token);
       console.log(token, "requested token");
-    
-      res.status(200).json({message :"welcome user", token});
 
+      res.status(200).json({ message: "welcome user", token });
     } else {
       res.status(401).send("Invalid email or password");
     }
@@ -53,7 +55,6 @@ const userLogin = async (req, res) => {
     res.status(500).send("Login failed");
   }
 };
-
 
 const userGetProducts = async (req, res) => {
   try {
@@ -66,7 +67,6 @@ const userGetProducts = async (req, res) => {
     console.log(error);
   }
 };
-
 
 // user can get specific product details
 
@@ -86,7 +86,6 @@ const specificProduct = async (req, res) => {
     res.status(500).json({ message: "server error", error: error.message });
   }
 };
-
 
 // user can get product by category wise
 const getCategoryWise = async (req, res) => {
@@ -117,8 +116,6 @@ const getCategoryWise = async (req, res) => {
   }
 };
 
-
-
 // user add product to cart
 
 const addToCart = async (req, res) => {
@@ -129,36 +126,34 @@ const addToCart = async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
     const token = req.cookies.token;
-    console.log("recevied token",token);
+    console.log("recevied token", token);
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await schema.findOne({ email: decoded.email });
 
     // Check if the product is already in the cart
     if (user.cart.includes(productId)) {
       return res
-        .status(409) // More appropriate status code for conflict
+        .status(409) // Conflict
         .json({ message: "Product is already in the cart" });
     }
 
-
-     // add the product to the cart
+    // add the product to the cart
     user.cart.push(productId);
     await user.save();
 
-    const updatedUser = await schema.findById(user._id).populate('cart');
+    const updatedUser = await schema.findById(user._id).populate("cart");
 
-   
-
-res
-  .status(200)
-  .json({ message: "Product added to cart successfully", user: updatedUser });
+    res
+      .status(200)
+      .json({
+        message: "Product added to cart successfully",
+        user: updatedUser,
+      });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "server error", error: err.message });
   }
 };
-
-
 
 const removeFromCart = async (req, res) => {
   try {
@@ -191,17 +186,13 @@ const removeFromCart = async (req, res) => {
   }
 };
 
-
-
-
-
-
-
 const getCart = async (req, res) => {
   try {
     const token = req.cookies.token;
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await schema.findOne({ email: decoded.email }).populate('cart');
+    const user = await schema
+      .findOne({ email: decoded.email })
+      .populate("cart");
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -214,14 +205,12 @@ const getCart = async (req, res) => {
   }
 };
 
-
-
 module.exports = {
   userRegister,
   userLogin,
   userGetProducts,
   specificProduct,
-  addToCart ,
+  addToCart,
   getCategoryWise,
   getCart,
   removeFromCart,

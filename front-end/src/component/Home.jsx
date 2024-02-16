@@ -57,6 +57,7 @@ export default function Home() {
   };
 
 
+
   // const handleAddToCart = async (productId) => {
   //   try {
   //     const response = await axios.post(
@@ -64,13 +65,14 @@ export default function Home() {
   //       {},
   //       { withCredentials: true }
   //     );
-  
-  //     if (response.status === 200) {
+
+  //     if (response.status === 409) {
   //       console.log("Product added to cart successfully");
-  //       alert("Product added to cart");
-        
-  //     }else if (response.status === 409) {
   //       alert("Product is already in the cart");
+  //       // Refresh products after adding to cart
+  //       fetchProducts();
+  //     } else if (response.status === 200) {
+  //       alert("Product added to cart");
   //     } else {
   //       console.error("Error adding to cart:", response.data);
   //       alert("Error adding product to cart");
@@ -81,7 +83,6 @@ export default function Home() {
   //   }
   // };
 
-
   const handleAddToCart = async (productId) => {
     try {
       const response = await axios.post(
@@ -89,26 +90,23 @@ export default function Home() {
         {},
         { withCredentials: true }
       );
-
-      if (response.status === 409) {
-        console.log("Product added to cart successfully");
-        alert("Product is already in the cart");
+  
+      if (response.status === 200) {
+        alert("Product added to cart");
         // Refresh products after adding to cart
         fetchProducts();
-      } else if (response.status === 200) {
-        alert("Product added to cart");
+      } else if (response.status === 409) {
+        console.log("Product is already in the cart");
+        alert("Product is already in the cart");
       } else {
         console.error("Error adding to cart:", response.data);
-        alert("Error adding product to cart");
+        alert("Error else case");
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
-      alert("Error adding product to cart");
+      alert("Error adding product to cart catch case");
     }
   };
-
-
-  
   
 
   useEffect(() => {
