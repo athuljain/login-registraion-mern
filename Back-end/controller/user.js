@@ -191,14 +191,13 @@ const removeFromCart = async (req, res) => {
   }
 };
 
+
+
 const getCart = async (req, res) => {
   try {
     const token = req.cookies.token;
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await schema
-      .findOne({ email: decoded.email })
-      .populate("cart");
-
+    const user = await schema.findOne({ email: decoded.email }).populate('cart');
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
