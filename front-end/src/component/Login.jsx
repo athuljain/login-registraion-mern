@@ -42,7 +42,7 @@ export default function Login() {
       nav("/home");
     } catch (error) {
       console.log(error.response.data);
-      alert("Registration failed!!!");
+      alert("Login failed!!!");
     }
   };
   return (
