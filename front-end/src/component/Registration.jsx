@@ -19,6 +19,13 @@ export default function Register() {
   } = useContext(myContext);
 
   const Register = async () => {
+
+
+    if (!name || !email || !password || !confirmPassword) {
+      alert("Please fill in all fields");
+      return;
+    }
+
     try {
       const response = await axios.post("http://localhost:5000/user/register", {
         name,
@@ -56,6 +63,7 @@ export default function Register() {
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        required
       />{" "}
       <br></br>
       <input

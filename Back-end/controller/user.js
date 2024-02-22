@@ -5,8 +5,13 @@ const schema = require("../model/userModel");
 const productDatas = require("../model/productModel");
 
 const userRegister = async (req, res) => {
+
   try {
     const { name, email, password, confirmPassword } = req.body;
+
+    if (!name || !email || !password || !confirmPassword) {
+      return res.status(400).send("Please fill in all fields");
+    }
 
     if (password !== confirmPassword) {
       return res.status(400).send("Passwords do not match");
