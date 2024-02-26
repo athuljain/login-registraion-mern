@@ -1,4 +1,3 @@
-// ProductDetails.jsx
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -7,9 +6,9 @@ import { myContext } from "../Context";
 export default function SpecificProductPage() {
   const { productId } = useParams();
   const { specificProduct, setSpecificProduct } = useContext(myContext);
-  const { products, setProducts, } = useContext(myContext);
+  const { products, setProducts,inCart, setInCart } = useContext(myContext);
   const [loading, setLoading] = useState(false);
-  console.log("specific page", specificProduct);
+  
 
   const fetchSpecificProduct = async () => {
     try {
@@ -49,30 +48,45 @@ export default function SpecificProductPage() {
     }
   };
 
-
-
   const handleAddToCart = async (productId) => {
     try {
-      const response = await axios.post(
-        `http://localhost:5000/user/products/cart/${productId}`,
-        {},
-        { withCredentials: true }
-      );
-  
-      if (response.status === 200) {
-        alert("Product added to cart");
-        // Refresh products after adding to cart
-        fetchProducts();
-      } else if (response.status === 409) {
-        console.log("Product is already in the cart");
-        alert("Product is already in the cart");
+      if (inCart) {
+        // If the product is already in the cart, remove it
+        await removeFromCart(productId);
+        setInCart(false); // Update state to reflect that the product is not in the cart
+        alert("Product removed from cart");
       } else {
-        console.error("Error adding to cart:", response.data);
-        alert("Error else case");
+        // If the product is not in the cart, add it
+        await addToCart(productId);
+        setInCart(true); // Update state to reflect that the product is in the cart
+        alert("Product added to cart");
       }
+      // Refresh products after adding to or removing from cart
+      fetchProducts();
     } catch (error) {
-      console.error("Error adding to cart:", error);
-      alert("Error adding product to cart catch case");
+      console.error("Error adding to/removing from cart:", error);
+      alert("Error adding/removing product to/from cart");
+    }
+  };
+
+  const addToCart = async (productId) => {
+    const response = await axios.post(
+      `http://localhost:5000/user/products/cart/${productId}`,
+      {},
+      { withCredentials: true }
+    );
+    if (response.status !== 200) {
+      throw new Error("Failed to add product to cart");
+    }
+  };
+
+  const removeFromCart = async (productId) => {
+    const response = await axios.delete(
+      `http://localhost:5000/user/products/cart/${productId}`,
+      { withCredentials: true }
+    );
+    if (response.status !== 200) {
+      throw new Error("Failed to remove product from cart");
     }
   };
 
@@ -86,7 +100,9 @@ export default function SpecificProductPage() {
           <p>{specificProduct.description}</p>
           <p>{specificProduct.price}</p>
           <img src={specificProduct.image} alt="Product" />
-          <button onClick={() => handleAddToCart(specificProduct._id)}>Add To Cart</button>
+          <button onClick={() => handleAddToCart(specificProduct._id)}>
+            {inCart ? "Remove from Cart" : "Add to Cart"}
+          </button>
         </div>
       )}
     </div>

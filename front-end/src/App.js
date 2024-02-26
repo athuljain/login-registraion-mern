@@ -42,6 +42,11 @@ function App() {
 
   const [specificProduct, setSpecificProduct]=useState({})
 
+  const [cartItems, setCartItems] = useState([]); // Initialize cartItems state
+
+  const [inCart, setInCart] = useState(false); // Define state to check if the product is in the cart
+
+
   const values={
     email,setEmail,
     password,setPassword,
@@ -53,7 +58,8 @@ function App() {
     token, setToken,
     products,setProducts,
     userToken, setUserToken,
-    specificProduct, setSpecificProduct
+    specificProduct, setSpecificProduct,
+    cartItems, setCartItems,inCart, setInCart
   }
   //console.log("front end token",token);
 
