@@ -178,46 +178,61 @@ export default function Home() {
     }
   }, [setProducts]);
 
+  
   const handleAddToCart = async (productId) => {
     try {
-      if (inCart) {
-        // If the product is already in the cart, remove it
-        await removeFromCart(productId);
-        setInCart(false); // Update state to reflect that the product is not in the cart
+      const response = await axios.post(
+        `http://localhost:5000/user/products/cart/${productId}`,
+        {},
+        { withCredentials: true }
+      );
+
+      if (response.status === 200) {
+        // Update the products array to reflect the change
+        const updatedProducts = products.map((product) => {
+          if (product._id === productId) {
+            return { ...product, inCart: true };
+          }
+          return product;
+        });
+        setProducts(updatedProducts);
+        alert("Product added to cart");
+      } else if (response.status === 409) {
+        alert("Product is already in the cart");
+      } else {
+        console.error("Error adding to cart:", response.data);
+        alert("Error adding to cart");
+      }
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      alert("Error adding to cart");
+    }
+  };
+
+  const handleRemoveFromCart = async (productId) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/user/products/cart/${productId}`,
+        { withCredentials: true }
+      );
+
+      if (response.status === 200) {
+        // Update the products array to reflect the change
+        const updatedProducts = products.map((product) => {
+          if (product._id === productId) {
+            return { ...product, inCart: false };
+          }
+          return product;
+        });
+        setProducts(updatedProducts);
         alert("Product removed from cart");
       } else {
-        // If the product is not in the cart, add it
-        await addToCart(productId);
-        setInCart(true); // Update state to reflect that the product is in the cart
-        alert("Product added to cart");
+        console.error("Error removing from cart:", response.data);
+        alert("Error removing from cart");
       }
-      // Refresh products after adding to or removing from cart
-      fetchProducts();
     } catch (error) {
-      console.error("Error adding to/removing from cart:", error);
-      alert("Error adding/removing product to/from cart");
-    }
-  };
-
-  const addToCart = async (productId) => {
-    const response = await axios.post(
-      `http://localhost:5000/user/products/cart/${productId}`,
-      {},
-      { withCredentials: true }
-    );
-    if (response.status !== 200) {
-      throw new Error("Failed to add product to cart");
-    }
-  };
-
-
-  const removeFromCart = async (productId) => {
-    const response = await axios.delete(
-      `http://localhost:5000/user/products/cart/${productId}`,
-      { withCredentials: true }
-    );
-    if (response.status !== 200) {
-      throw new Error("Failed to remove product from cart");
+      console.error("Error removing from cart:", error);
+      alert("Error removing from cart");
     }
   };
 
@@ -251,6 +266,13 @@ export default function Home() {
     fetchProductsByCategory("phone");
     nav(`/phones`);
   };
+  const handleButtonClick = (productId, inCart) => {
+    if (inCart) {
+      handleRemoveFromCart(productId);
+    } else {
+      handleAddToCart(productId);
+    }
+  };
 
   return (
     <div className="container">
@@ -272,12 +294,16 @@ export default function Home() {
                 <h4>{product.title}</h4>
                 <h5>{product.description}</h5>
                 <h4>{product.price}</h4>
-                {/* <button onClick={() => handleAddToCart(product._id)}>
-                  {product.inCart ? "Remove from Cart" : "Add to Cart"}
-                </button> */}
-                 <button onClick={() => handleAddToCart(product._id)}>
+                
+                 {/* <button onClick={() => handleAddToCart(product._id)}>
             {inCart ? "Remove from Cart" : "Add to Cart"}
-          </button>
+          </button> */}
+
+             <button
+                  onClick={() => handleButtonClick(product._id, product.inCart)}
+                >
+                  {product.inCart ? "Remove from Cart" : "Add to Cart"}
+                </button>
               </div>
             ))}
           </div>
