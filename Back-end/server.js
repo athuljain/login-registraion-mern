@@ -10,7 +10,8 @@ app.use(express.json())
 
 
 
-app.use(cors({
+app.use
+(cors({
   origin: 'http://localhost:3000',  // Replace with your front-end URL
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,

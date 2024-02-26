@@ -155,9 +155,11 @@ import { myContext } from "../Context";
 import "./Style/Home.css";
 
 export default function Home() {
-  const { products, setProducts, inCart, setInCart } = useContext(myContext);
+  const { products, setProducts, inCart,setInCart } = useContext(myContext);
   const [loading, setLoading] = useState(false);
   const nav = useNavigate();
+
+  console.log("inCart",inCart);
 
   const fetchProducts = useCallback(async () => {
     try {
@@ -176,7 +178,53 @@ export default function Home() {
     }
   }, [setProducts]);
 
-  // Fetch products by category
+  const handleAddToCart = async (productId) => {
+    try {
+      if (inCart) {
+        // If the product is already in the cart, remove it
+        await removeFromCart(productId);
+        setInCart(false); // Update state to reflect that the product is not in the cart
+        alert("Product removed from cart");
+      } else {
+        // If the product is not in the cart, add it
+        await addToCart(productId);
+        setInCart(true); // Update state to reflect that the product is in the cart
+        alert("Product added to cart");
+      }
+      // Refresh products after adding to or removing from cart
+      fetchProducts();
+    } catch (error) {
+      console.error("Error adding to/removing from cart:", error);
+      alert("Error adding/removing product to/from cart");
+    }
+  };
+
+  const addToCart = async (productId) => {
+    const response = await axios.post(
+      `http://localhost:5000/user/products/cart/${productId}`,
+      {},
+      { withCredentials: true }
+    );
+    if (response.status !== 200) {
+      throw new Error("Failed to add product to cart");
+    }
+  };
+
+
+  const removeFromCart = async (productId) => {
+    const response = await axios.delete(
+      `http://localhost:5000/user/products/cart/${productId}`,
+      { withCredentials: true }
+    );
+    if (response.status !== 200) {
+      throw new Error("Failed to remove product from cart");
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
   const fetchProductsByCategory = async (category) => {
     try {
       setLoading(true);
@@ -204,45 +252,6 @@ export default function Home() {
     nav(`/phones`);
   };
 
-  const handleAddToCart = async (productId) => {
-    try {
-      const response = await axios.post(
-        `http://localhost:5000/user/products/cart/${productId}`,
-        {},
-        { withCredentials: true }
-      );
-
-      if (response.status === 200) {
-        alert("Product added to cart");
-        // Refresh products after adding to cart
-        fetchProducts();
-      } else if (response.status === 409) {
-        console.log("Product is already in the cart");
-        alert("Product is already in the cart");
-      } else {
-        console.error("Error adding to cart:", response.data);
-        alert("Error else case");
-      }
-    } catch (error) {
-      console.error("Error adding to cart:", error);
-      alert("Error adding product to cart catch case");
-    }
-  };
-
-  useEffect(() => {
-    fetchProducts();
-  }, [fetchProducts]);
-
-  const removeFromCart = async (productId) => {
-    const response = await axios.delete(
-      `http://localhost:5000/user/products/cart/${productId}`,
-      { withCredentials: true }
-    );
-    if (response.status !== 200) {
-      throw new Error("Failed to remove product from cart");
-    }
-  };
-
   return (
     <div className="container">
       <div className="sub-Container">
@@ -263,9 +272,12 @@ export default function Home() {
                 <h4>{product.title}</h4>
                 <h5>{product.description}</h5>
                 <h4>{product.price}</h4>
-                <button onClick={() => handleAddToCart(product._id)}>
+                {/* <button onClick={() => handleAddToCart(product._id)}>
                   {product.inCart ? "Remove from Cart" : "Add to Cart"}
-                </button>
+                </button> */}
+                 <button onClick={() => handleAddToCart(product._id)}>
+            {inCart ? "Remove from Cart" : "Add to Cart"}
+          </button>
               </div>
             ))}
           </div>
