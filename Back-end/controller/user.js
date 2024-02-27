@@ -123,6 +123,43 @@ const getCategoryWise = async (req, res) => {
 
 // user add product to cart
 
+// const addToCart = async (req, res) => {
+//   try {
+//     const productId = req.params.id;
+//     const product = await productDatas.findById(productId);
+//     if (!product) {
+//       return res.status(404).json({ message: "Product not found" });
+//     }
+//     const token = req.cookies.token;
+//     console.log("recevied token", token);
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+//     const user = await schema.findOne({ email: decoded.email });
+
+//     // Check if the product is already in the cart
+//     if (user.cart.includes(productId)) {
+//       return res
+//         .status(409) // Conflict
+//         .json({ message: "Product is already in the cart" });
+//     }
+
+//     // add the product to the cart
+//     user.cart.push(productId);
+//     await user.save();
+
+//     const updatedUser = await schema.findById(user._id).populate("cart");
+
+//     res
+//       .status(200)
+//       .json({
+//         message: "Product added to cart successfully",
+//         user: updatedUser,
+//       });
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).json({ error: "server error", error: err.message });
+//   }
+// };
+
 const addToCart = async (req, res) => {
   try {
     const productId = req.params.id;
@@ -130,35 +167,40 @@ const addToCart = async (req, res) => {
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
-    const token = req.cookies.token;
-    console.log("recevied token", token);
+
+    // Verify user token
+    const token = req.cookies.token; // Assuming token is sent via cookies
+    if (!token) {
+      return res.status(401).json({ message: 'Unauthorized - No token provided' });
+    }
+    
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await schema.findOne({ email: decoded.email });
 
     // Check if the product is already in the cart
     if (user.cart.includes(productId)) {
-      return res
-        .status(409) // Conflict
-        .json({ message: "Product is already in the cart" });
+      return res.status(409).json({ message: "Product is already in the cart" });
     }
 
-    // add the product to the cart
+    // Add the product to the cart
     user.cart.push(productId);
     await user.save();
 
+    // Fetch updated user information with populated cart
     const updatedUser = await schema.findById(user._id).populate("cart");
 
-    res
-      .status(200)
-      .json({
-        message: "Product added to cart successfully",
-        user: updatedUser,
-      });
+    res.status(200).json({
+      message: "Product added to cart successfully",
+      user: updatedUser,
+    });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ error: "server error", error: err.message });
+    res.status(500).json({ error: "Server error", errorMessage: err.message });
   }
 };
+
+
+
 
 const removeFromCart = async (req, res) => {
   try {

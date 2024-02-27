@@ -23,7 +23,7 @@ app.get("/getProducts",userMiddleware, user.userGetProducts);
 app.get("/products/:id",userMiddleware, user.specificProduct);
 app.get("/products/category/:category",userMiddleware, user.getCategoryWise);
 app.post("/products/cart/:id",userMiddleware, user.addToCart);
-app.get("/cart", user.getCart)
+app.get("/cart",userMiddleware, user.getCart)
 app.delete("/products/cart/:id",userMiddleware,user.removeFromCart)
 
 module.exports = app;

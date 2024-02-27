@@ -20,7 +20,12 @@
   
   // module.exports = mongoose.model('User', userSchema);
 
-  const mongoose = require("mongoose");
+
+// Create a Mongoose schema and model for the user
+const mongoose = require("mongoose");
+
+// Import the Product model
+require("./productModel");
 
 // Create a Mongoose schema and model for the user
 const userSchema = new mongoose.Schema({
