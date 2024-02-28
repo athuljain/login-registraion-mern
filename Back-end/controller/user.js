@@ -5,7 +5,6 @@ const schema = require("../model/userModel");
 const productDatas = require("../model/productModel");
 
 const userRegister = async (req, res) => {
-
   try {
     const { name, email, password, confirmPassword } = req.body;
 
@@ -171,15 +170,19 @@ const addToCart = async (req, res) => {
     // Verify user token
     const token = req.cookies.token; // Assuming token is sent via cookies
     if (!token) {
-      return res.status(401).json({ message: 'Unauthorized - No token provided' });
+      return res
+        .status(401)
+        .json({ message: "Unauthorized - No token provided" });
     }
-    
+
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await schema.findOne({ email: decoded.email });
 
     // Check if the product is already in the cart
     if (user.cart.includes(productId)) {
-      return res.status(409).json({ message: "Product is already in the cart" });
+      return res
+        .status(409)
+        .json({ message: "Product is already in the cart" });
     }
 
     // Add the product to the cart
@@ -198,9 +201,6 @@ const addToCart = async (req, res) => {
     res.status(500).json({ error: "Server error", errorMessage: err.message });
   }
 };
-
-
-
 
 const removeFromCart = async (req, res) => {
   try {
@@ -233,13 +233,13 @@ const removeFromCart = async (req, res) => {
   }
 };
 
-
-
 const getCart = async (req, res) => {
   try {
     const token = req.cookies.token;
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await schema.findOne({ email: decoded.email }).populate('cart');
+    const user = await schema
+      .findOne({ email: decoded.email })
+      .populate("cart");
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }

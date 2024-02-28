@@ -46,7 +46,6 @@ const createProduct = async (req, res) => {
   }
 };
 
-
 // const createProduct = async (req, res) => {
 //   try {
 //     const newProduct = {
@@ -66,7 +65,6 @@ const createProduct = async (req, res) => {
 //     res.status(500).json({ message: "Failed to create Product", error: error.message });
 //   }
 // };
-
 
 // find all product details
 
@@ -128,16 +126,10 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-
-
-
-
 module.exports = {
   adminLogin,
   createProduct,
   getProducts,
   updateProduct,
   deleteProduct,
-
-
 };
