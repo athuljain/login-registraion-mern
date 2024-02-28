@@ -46,7 +46,6 @@ const createProduct = async (req, res) => {
   }
 };
 
-
 // find all product details
 
 const getProducts = async (req, res) => {

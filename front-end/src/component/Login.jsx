@@ -15,13 +15,10 @@ export default function Login() {
 
   const Login = async () => {
     try {
-
-
-      if (  !email || !password  ) {
+      if (!email || !password) {
         alert("Please fill in all fields");
         return;
       }
-
 
       const response = await axios.post(
         "http://localhost:5000/user/login",

@@ -6,9 +6,8 @@ import { myContext } from "../Context";
 export default function SpecificProductPage() {
   const { productId } = useParams();
   const { specificProduct, setSpecificProduct } = useContext(myContext);
-  const { products, setProducts,inCart, setInCart } = useContext(myContext);
+  const { products, setProducts, inCart, setInCart } = useContext(myContext);
   const [loading, setLoading] = useState(false);
-  
 
   const fetchSpecificProduct = async () => {
     try {

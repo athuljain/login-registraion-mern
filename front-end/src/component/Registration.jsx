@@ -19,8 +19,6 @@ export default function Register() {
   } = useContext(myContext);
 
   const Register = async () => {
-
-
     if (!name || !email || !password || !confirmPassword) {
       alert("Please fill in all fields");
       return;

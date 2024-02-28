@@ -1,5 +1,3 @@
-
-
 import React, { useContext, useEffect, useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -7,11 +5,11 @@ import { myContext } from "../Context";
 import "./Style/Home.css";
 
 export default function Home() {
-  const { products, setProducts, inCart,setInCart } = useContext(myContext);
+  const { products, setProducts, inCart, setInCart } = useContext(myContext);
   const [loading, setLoading] = useState(false);
   const nav = useNavigate();
 
-  console.log("inCart",inCart);
+  console.log("inCart", inCart);
 
   const fetchProducts = useCallback(async () => {
     try {
@@ -61,7 +59,6 @@ export default function Home() {
       throw new Error("Failed to add product to cart");
     }
   };
-
 
   const removeFromCart = async (productId) => {
     const response = await axios.delete(
@@ -127,9 +124,9 @@ export default function Home() {
                 {/* <button onClick={() => handleAddToCart(product._id)}>
                   {product.inCart ? "Remove from Cart" : "Add to Cart"}
                 </button> */}
-                 <button onClick={() => handleAddToCart(product._id)}>
-            {inCart ? "Remove from Cart" : "Add to Cart"}
-          </button>
+                <button onClick={() => handleAddToCart(product._id)}>
+                  {inCart ? "Remove from Cart" : "Add to Cart"}
+                </button>
               </div>
             ))}
           </div>
