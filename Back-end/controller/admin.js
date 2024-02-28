@@ -46,25 +46,6 @@ const createProduct = async (req, res) => {
   }
 };
 
-// const createProduct = async (req, res) => {
-//   try {
-//     const newProduct = {
-//       title: req.body.title,
-//       description: req.body.description,
-//       price: req.body.price,
-//       image: req.body.image,
-//       category: req.body.category,
-//       brand: req.body.brand,
-//     };
-
-//     await productDatas.create(newProduct); // Assuming productDatas is your Mongoose model
-
-//     res.status(200).json({ message: "Product Create Successfully" });
-//     console.log("Product created successfully");
-//   } catch (error) {
-//     res.status(500).json({ message: "Failed to create Product", error: error.message });
-//   }
-// };
 
 // find all product details
 
