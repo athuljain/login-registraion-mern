@@ -16,7 +16,8 @@ export default function SpecificProductPage() {
     // Check if the product is in the cart when the component mounts
     const isInCart = cartItems.some(item => item._id === productId);
     setInCart(isInCart);
-  }, [cartItems, productId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartItems]);
 
   const fetchSpecificProduct = async () => {
     try {
@@ -39,25 +40,49 @@ export default function SpecificProductPage() {
     fetchSpecificProduct();
   }, [productId]);
 
+  // const addToCart = async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       `http://localhost:5000/user/products/cart/${productId}`,
+  //       {},
+  //       { withCredentials: true }
+  //     );
+  //     if (response.status === 200) {
+  //       // Update cartItems state if the product is added to cart successfully
+  //       setCartItems(prevItems => [...prevItems, specificProduct]);
+  //       setInCart(true);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error adding product to cart:", error);
+  //   }
+  // };
+
   const addToCart = async () => {
     try {
-      const response = await axios.post(
-        `http://localhost:5000/user/products/cart/${productId}`,
-        {},
-        { withCredentials: true }
-      );
-      if (response.status === 200) {
-        // Update cartItems state if the product is added to cart successfully
-        setCartItems(prevItems => [...prevItems, specificProduct]);
-        setInCart(true);
+      if (!inCart) {
+        const response = await axios.post(
+          `http://localhost:5000/user/products/cart/${productId}`,
+          {},
+          { withCredentials: true }
+        );
+        if (response.status === 200) {
+          // Update cartItems state if the product is added to cart successfully
+          setCartItems(prevCartItems => [...prevCartItems, specificProduct]);
+          setInCart(true);
+          alert("Product added to cart");
+        }
+      } else {
+        // If the product is already in cart, do nothing
       }
     } catch (error) {
       console.error("Error adding product to cart:", error);
     }
   };
-
-  const removeFromCart = async () => {
-    try {
+  
+ 
+const removeFromCart = async () => {
+  try {
+    if (inCart) {
       const response = await axios.delete(
         `http://localhost:5000/user/products/cart/${productId}`,
         { withCredentials: true }
@@ -66,11 +91,32 @@ export default function SpecificProductPage() {
         // Update cartItems state if the product is removed from cart successfully
         setCartItems(prevItems => prevItems.filter(item => item._id !== productId));
         setInCart(false);
+        alert("Product removed from cart");
       }
-    } catch (error) {
-      console.error("Error removing product from cart:", error);
+    } else {
+      // If the product is not in cart, do nothing
     }
-  };
+  } catch (error) {
+    console.error("Error removing product from cart:", error);
+  }
+};
+  
+
+  // const removeFromCart = async () => {
+  //   try {
+  //     const response = await axios.delete(
+  //       `http://localhost:5000/user/products/cart/${productId}`,
+  //       { withCredentials: true }
+  //     );
+  //     if (response.status === 200) {
+  //       // Update cartItems state if the product is removed from cart successfully
+  //       setCartItems(prevItems => prevItems.filter(item => item._id !== productId));
+  //       setInCart(false);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error removing product from cart:", error);
+  //   }
+  // };
 
   return (
     <div>

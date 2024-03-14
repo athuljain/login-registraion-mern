@@ -60,17 +60,43 @@ const userLogin = async (req, res) => {
   }
 };
 
+// const userGetProducts = async (req, res) => {
+//   try {
+//     const allProducts = await productDatas.find();
+//     res.status(200).json({ message: "All Product List", allProducts });
+//   } catch (error) {
+//     res
+//       .status(404)
+//       .json({ message: "All Product List Not Found: ", error: error.message });
+//     console.log(error);
+//   }
+// };
+
+
 const userGetProducts = async (req, res) => {
   try {
+    // Fetch all products
     const allProducts = await productDatas.find();
-    res.status(200).json({ message: "All Product List", allProducts });
-  } catch (error) {
-    res
-      .status(404)
-      .json({ message: "All Product List Not Found: ", error: error.message });
-    console.log(error);
+
+    // Fetch user's cart items
+    const token = req.cookies.token;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await schema.findOne({ email: decoded.email });
+    const userCart = user.cart;
+
+    // Check if each product is in the user's cart
+    const productsWithCartStatus = allProducts.map(product => ({
+      ...product.toObject(),
+      inCart: userCart.includes(product._id.toString()) // Check if product is in cart
+    }));
+
+    res.status(200).json({ allProducts: productsWithCartStatus });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Server error", errorMessage: err.message });
   }
 };
+
 
 
 // user can get product by category wise

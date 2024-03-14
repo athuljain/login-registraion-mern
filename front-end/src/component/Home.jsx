@@ -36,9 +36,30 @@ export default function Home() {
     }
   }, [setProducts, cartItems]);
 
-  const handleAddToCart = async (productId) => {
+  // const handleAddToCart = async (productId) => {
+  //   try {
+  //     if (cartItems.includes(productId)) {
+  //       // If the product is already in the cart, remove it
+  //       await removeFromCart(productId);
+  //       setCartItems(prevCartItems => prevCartItems.filter(id => id !== productId));
+  //       alert("Product removed from cart");
+  //     } else {
+  //       // If the product is not in the cart, add it
+  //       await addToCart(productId);
+  //       setCartItems(prevCartItems => [...prevCartItems, productId]);
+  //       alert("Product added to cart");
+  //     }
+  //     // Refresh products after adding to or removing from cart
+  //     fetchProducts();
+  //   } catch (error) {
+  //     console.error("Error adding to/removing from cart:", error);
+  //     alert("Error adding/removing product to/from cart");
+  //   }
+  // };
+
+  const handleAddToCart = async (productId, inCart) => {
     try {
-      if (cartItems.includes(productId)) {
+      if (inCart) {
         // If the product is already in the cart, remove it
         await removeFromCart(productId);
         setCartItems(prevCartItems => prevCartItems.filter(id => id !== productId));
@@ -49,13 +70,13 @@ export default function Home() {
         setCartItems(prevCartItems => [...prevCartItems, productId]);
         alert("Product added to cart");
       }
-      // Refresh products after adding to or removing from cart
-      fetchProducts();
+      // No need to refresh products here, it's done after adding/removing from cart
     } catch (error) {
       console.error("Error adding to/removing from cart:", error);
       alert("Error adding/removing product to/from cart");
     }
   };
+  
 
   const addToCart = async (productId) => {
     const response = await axios.post(
@@ -121,17 +142,17 @@ export default function Home() {
           <p>Loading...</p>
         ) : (
           <div className="bodyinner" style={{ display: "flex" }}>
-            {products.map((product) => (
-              <div className="body-card" key={product._id}>
-                <Link to={`/product/${product._id}`}>
-                  <img src={product.image} alt="img" />
-                </Link>
-                <h4>{product.title}</h4>
-                <h5>{product.description}</h5>
-                <h4>{product.price}</h4>
-                <button onClick={() => handleAddToCart(product._id)}>
-                  {product.inCart ? "Remove from Cart" : "Add to Cart"}
-                </button>
+           {products.map((product) => (
+  <div className="body-card" key={product._id}>
+    <Link to={`/product/${product._id}`}>
+      <img src={product.image} alt="img" />
+    </Link>
+    <h4>{product.title}</h4>
+    <h5>{product.description}</h5>
+    <h4>{product.price}</h4>
+    <button onClick={() => handleAddToCart(product._id, product.inCart)}>
+      {product.inCart ? "Remove from Cart" : "Add to Cart"}
+    </button>
               </div>
             ))}
           </div>
