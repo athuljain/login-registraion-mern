@@ -72,24 +72,6 @@ const userGetProducts = async (req, res) => {
   }
 };
 
-// user can get specific product details
-
-const specificProduct = async (req, res) => {
-  try {
-    console.log(req.params.id);
-    const specificProduct = await productDatas.findById(req.params.id);
-
-    if (specificProduct) {
-      return res
-        .status(200)
-        .json({ message: "Specific Product :", specificProduct });
-    }
-    return res.status(404).json({ error: "product not found" });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "server error", error: error.message });
-  }
-};
 
 // user can get product by category wise
 const getCategoryWise = async (req, res) => {
@@ -195,6 +177,27 @@ const removeFromCart = async (req, res) => {
     res.status(500).json({ error: "Server error", error: err.message });
   }
 };
+
+
+// user can get specific product details
+
+const specificProduct = async (req, res) => {
+  try {
+    console.log(req.params.id);
+    const specificProduct = await productDatas.findById(req.params.id);
+
+    if (specificProduct) {
+      return res
+        .status(200)
+        .json({ message: "Specific Product :", specificProduct });
+    }
+    return res.status(404).json({ error: "product not found" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "server error", error: error.message });
+  }
+};
+
 
 const getCart = async (req, res) => {
   try {
