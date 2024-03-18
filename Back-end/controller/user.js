@@ -98,7 +98,6 @@ const userGetProducts = async (req, res) => {
 };
 
 
-
 // user can get product by category wise
 const getCategoryWise = async (req, res) => {
   const categoryList = req.params.category;
@@ -236,12 +235,35 @@ const getCart = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
+    if (user.cart.length === 0) {
+      return res.status(200).json({ message: "User cart is empty" });
+    }
+
     res.status(200).json({ cart: user.cart });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "Server error", errorMessage: err.message });
   }
 };
+
+
+// const getCart = async (req, res) => {
+//   try {
+//     const token = req.cookies.token;
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+//     const user = await schema
+//       .findOne({ email: decoded.email })
+//       .populate("cart");
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     res.status(200).json({ cart: user.cart });
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).json({ error: "Server error", errorMessage: err.message });
+//   }
+// };
 
 module.exports = {
   userRegister,
